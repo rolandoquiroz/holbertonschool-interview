@@ -50,13 +50,14 @@ def canUnlockAll(boxes):
         for i in range(len(boxes)):
             if ((keys[i] == i) and (can_be_opened[i] is True) and
                     (opened[i] is False)):
-                opened[i] = True
                 for number in boxes[i]:
                     if ((number in needed_keys) and (number not in keys)):
                         keys[number] = number
                         can_be_opened[number] = True
-                        if keys == needed_keys:
-                            return True
                     else:
                         continue
+                opened[i] = True
+               
+    if can_be_opened is True:
+        return True
     return False
