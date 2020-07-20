@@ -18,8 +18,6 @@ This file can also be imported as a module and contains the following
 function methods:
 
     * canUnlockAll - Determines if all the boxes can be opened
-    * 0-main - the main function of the script
-
 """
 
 
@@ -53,11 +51,10 @@ def canUnlockAll(boxes):
                 for number in boxes[i]:
                     if ((number in needed_keys) and (number not in keys)):
                         keys[number] = number
+                        if keys == needed_keys:
+                            return True
                         can_be_opened[number] = True
                     else:
                         continue
                 opened[i] = True
-
-    if keys == needed_keys:
-        return True
     return False
