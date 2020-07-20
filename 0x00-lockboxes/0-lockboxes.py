@@ -58,6 +58,6 @@ def canUnlockAll(boxes):
                         continue
                 opened[i] = True
 
-    if can_be_opened is True:
+    if keys == needed_keys:
         return True
     return False
