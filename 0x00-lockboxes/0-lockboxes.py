@@ -39,6 +39,6 @@ def canUnlockAll(boxes):
                 got_keys.append(new_key)
             else:
                 continue
-        if needed_keys == sorted(got_keys):
-            return True
+            if needed_keys == sorted(got_keys):
+                return True
     return False
