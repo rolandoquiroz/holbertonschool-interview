@@ -3,6 +3,7 @@
 You have n number of locked boxes in front of you.Each box is numbered
 sequentially from 0 to n - 1 and each box may contain keys to the other
 boxes.
+
 This module contains a method called canUnlockAll that determines
 if all the boxes can be opened.
 - Prototype: def canUnlockAll(boxes)
@@ -11,6 +12,7 @@ if all the boxes can be opened.
 - You can assume all keys will be positive integers
 - The first box boxes[0] is unlocked
 - Return True if all boxes can be opened, else return False
+
 This file can also be imported as a module and contains the following
 function methods:
     * canUnlockAll - Determines if all the boxes can be opened
@@ -25,30 +27,18 @@ def canUnlockAll(boxes):
         (bool): True if all boxes can be opened, else return False
     """
     needed_keys = []
-    got_keys = []
-    can_be_opened = []
-    opened = []
-
     for i in range(len(boxes)):
         needed_keys.append(i)
-        got_keys.append(None)
-        can_be_opened.append(False)
-        opened.append(False)
 
-    got_keys[0] = 0
-    can_be_opened[0] = True
+    got_keys = []
+    got_keys.append(0)
 
-    while (can_be_opened != opened):
-        for i in range(len(boxes)):
-            if ((got_keys[i] == i) and (can_be_opened[i] is True) and
-                    (opened[i] is False)):
-                for number in boxes[i]:
-                    if ((number in needed_keys) and (number not in got_keys)):
-                        got_keys[number] = number
-                        can_be_opened[number] = True
-                    else:
-                        continue
-                if got_keys == needed_keys:
+    for key in got_keys:
+        for new_key in boxes[key]:
+            if ((new_key in needed_keys) and (new_key not in got_keys)):
+                got_keys.append(new_key)
+                if needed_keys == sorted(got_keys):
                     return True
-                opened[i] = True
+            else:
+                continue
     return False
