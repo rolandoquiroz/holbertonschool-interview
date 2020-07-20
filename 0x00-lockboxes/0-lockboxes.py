@@ -37,8 +37,8 @@ def canUnlockAll(boxes):
         for new_key in boxes[key]:
             if ((new_key in needed_keys) and (new_key not in got_keys)):
                 got_keys.append(new_key)
-                if needed_keys == sorted(got_keys):
-                    return True
             else:
                 continue
+        if needed_keys == sorted(got_keys):
+            return True
     return False
