@@ -9,5 +9,44 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
+	heap_t *ans = NULL;
 
+	if (*root == NULL)
+	{
+		*root = binary_tree_node(NULL, value);
+		ans = (*root);
+	}
+	else
+	{
+		if ((*root)->left == NULL && (*root)->right == NULL)
+		{
+			(*root)->left = binary_tree_node(*root, value);
+
+			if ((*root)->left->n > (*root)->n)
+			{
+				int temp = (*root)->n;
+				(*root)->n = (*root)->left->n;
+				(*root)->left->n = temp;
+				return ((*root));
+			}
+			ans = (*root)->left;
+		}
+
+		if ((*root)->left != NULL && (*root)->right == NULL)
+		{
+			(*root)->right = binary_tree_node(*root, value);
+
+			if ((*root)->right->n > (*root)->n)
+			{
+				int temp = (*root)->n;
+				(*root)->n = (*root)->right->n;
+				(*root)->right->n = temp;
+				return ((*root));
+			}
+			ans = (*root)->right;
+		}
+
+	}
+
+	return (ans);
 }
