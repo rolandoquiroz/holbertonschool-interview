@@ -9,7 +9,7 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new_father = NULL;
+	heap_t *new_dad = NULL;
 	heap_t *ans = NULL;
 
 	int size;
@@ -49,30 +49,30 @@ heap_t *heap_insert(heap_t **root, int value)
 	}
 	else
 	{
-		new_father = NthNode(*root, (size + 1) / 2);
+		new_dad = NthNode(*root, (size + 1) / 2);
 
-		if (new_father->left == NULL)
+		if (new_dad->left == NULL)
 		{
-			new_father->left = binary_tree_node(new_father, value);
-			if (value > new_father->n)
+			new_dad->left = binary_tree_node(new_dad, value);
+			if (value > new_dad->n)
 			{
-				value = new_father->n;
-				new_father->n = new_father->left->n;
-				new_father->left->n = value;
+				value = new_dad->n;
+				new_dad->n = new_dad->left->n;
+				new_dad->left->n = value;
 			}
-			ans = new_father->left;
+			ans = new_dad->left;
 			return (ans);
 		}
-		else if ((new_father->left != NULL) && (new_father->right == NULL))
+		else if ((new_dad->left != NULL) && (new_dad->right == NULL))
 		{
-			new_father->right = binary_tree_node(new_father, value);
-			if (value > new_father->n)
+			new_dad->right = binary_tree_node(new_dad, value);
+			if (value > new_dad->n)
 			{
-				value = new_father->n;
-				new_father->n = new_father->right->n;
-				new_father->right->n = value;
+				value = new_dad->n;
+				new_dad->n = new_dad->right->n;
+				new_dad->right->n = value;
 			}
-			ans = new_father->right;
+			ans = new_dad->right;
 			return (ans);
 		}
 	}
@@ -80,6 +80,12 @@ heap_t *heap_insert(heap_t **root, int value)
 	return (ans);
 }
 
+/**
+ * binary_tree_size - Function that measures the size of a binary tree
+ * @tree: Pointer to the root node of the tree to measure the size
+ *
+ * Return: If tree is NULL return 0
+ */
 int binary_tree_size(const binary_tree_t *tree)
 {
 	size_t size_left = 0, size_right = 0;
@@ -95,6 +101,13 @@ int binary_tree_size(const binary_tree_t *tree)
 	return (size_left + size_right + 1);
 }
 
+/**
+ * NthNode - Function that gets next father to insert new child node
+ * @root: Pointer to the root node of the tree to measure the size
+ * @n: Size of the tree
+ *
+ * Return: If tree is NULL return 0
+ */
 heap_t *NthNode(heap_t *root, int n)
 {
 	int bitIndex = 0;
@@ -119,4 +132,19 @@ heap_t *NthNode(heap_t *root, int n)
 		bitIndex--;
 	}
 	return (root);
+}
+
+/**
+ * swapper - Function that swaps two ints
+ * @a: Pointer to the root node of the tree to measure the size
+ * @b: Size of the tree
+ *
+ * Return: Nothing
+ */
+void swapper(int a, int b)
+{
+	int temp = a;
+
+	a = b;
+	b = temp;
 }
