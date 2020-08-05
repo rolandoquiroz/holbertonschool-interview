@@ -9,7 +9,11 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
+
 	heap_t *ans = NULL;
+
+	if (root == NULL)
+		return (NULL);
 
 	if (*root == NULL)
 	{
