@@ -9,12 +9,7 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new_dad = NULL;
-	heap_t *old_dad = NULL;
-	heap_t *ans = NULL;
-	int size;
-
-	size = binary_tree_size(*root);
+	int size = binary_tree_size(*root);
 
 	if (size >= 0 && size < 3)
 	{
@@ -43,49 +38,62 @@ heap_t *heap_insert(heap_t **root, int value)
 			}
 			return ((*root)->right);
 		}
-		return (ans);
 	}
 	else
-	{
-		old_dad = (*root);
-		new_dad = NthNode(*root, (size + 1) / 2);
-
-		if (new_dad->left == NULL)
-		{
-			new_dad->left = binary_tree_node(new_dad, value);
-			ans = new_dad->left;
-			if (value > new_dad->n)
-			{
-				swap(&new_dad->n, &new_dad->left->n);
-				ans = new_dad;
-			}
-			if (ans->n > old_dad->n)
-			{
-				swap(&new_dad->n, &old_dad->n);
-				ans = old_dad;
-			}
-			return (ans);
-		}
-		else if ((new_dad->left != NULL) && (new_dad->right == NULL))
-		{
-			new_dad->right = binary_tree_node(new_dad, value);
-			ans = new_dad->right;
-			if (value > new_dad->n)
-			{
-				swap(&new_dad->n, &new_dad->right->n);
-				ans = new_dad;
-			}
-			if (new_dad->n > old_dad->n)
-			{
-				swap(&new_dad->n, &old_dad->n);
-				ans = old_dad;
-			}
-			return (ans);
-		}
-	}
-
+		return (o_heap_insert(root, value));
 	return (NULL);
 }
+
+/**
+ * o_heap_insert - Inserts a value into a Max Binary Heap
+ * @root: Pointer to pointer to the root node of the Heap
+ * @value: Value to store in the node to be inserted
+ *
+ * Return: Pointer to new created node, or NULL on failure
+ */
+heap_t *o_heap_insert(heap_t **root, int value)
+{
+	heap_t *new_dad = NULL, *old_dad = NULL, *ans = NULL;
+	int size = binary_tree_size(*root);
+
+	old_dad = (*root);
+	new_dad = kNode(*root, (size + 1) / 2);
+
+	if (new_dad->left == NULL)
+	{
+		new_dad->left = binary_tree_node(new_dad, value);
+		ans = new_dad->left;
+		if (value > new_dad->n)
+		{
+			swap(&new_dad->n, &new_dad->left->n);
+			ans = new_dad;
+		}
+		if (ans->n > old_dad->n)
+		{
+			swap(&new_dad->n, &old_dad->n);
+			ans = old_dad;
+		}
+		return (ans);
+	}
+	else if ((new_dad->left != NULL) && (new_dad->right == NULL))
+	{
+		new_dad->right = binary_tree_node(new_dad, value);
+		ans = new_dad->right;
+		if (value > new_dad->n)
+		{
+			swap(&new_dad->n, &new_dad->right->n);
+			ans = new_dad;
+		}
+		if (new_dad->n > old_dad->n)
+		{
+			swap(&new_dad->n, &old_dad->n);
+			ans = old_dad;
+		}
+		return (ans);
+	}
+	return (NULL);
+}
+
 
 /**
  * binary_tree_size - Function that measures the size of a binary tree
@@ -109,13 +117,13 @@ int binary_tree_size(const binary_tree_t *tree)
 }
 
 /**
- * NthNode - Function that gets next father to insert new child node
+ * kNode - Function that gets next father to insert new child node
  * @root: Pointer to the root node of the tree to measure the size
  * @n: Size of the tree
  *
  * Return: If tree is NULL return 0
  */
-heap_t *NthNode(heap_t *root, int n)
+heap_t *kNode(heap_t *root, int n)
 {
 	int bitIndex = 0;
 
