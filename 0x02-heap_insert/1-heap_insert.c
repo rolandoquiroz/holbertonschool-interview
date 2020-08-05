@@ -158,7 +158,6 @@ heap_t *kNode(heap_t *root, int n)
  */
 void swap(int *x, int *y)
 {
-
 	int temp;
 
 	temp = *x;
