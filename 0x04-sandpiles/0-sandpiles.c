@@ -23,9 +23,9 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 			if ((i > 0 && i < 4) && (j > 0 && j < 4))
 			{
 				grid1[i - 1][j - 1] += grid2[i - 1][j - 1];
-				big[i][j] = grid1[i - 1][j - 1];
 				if (grid1[i - 1][j - 1] > 3)
 					unstable = 1;
+				big[i][j] = grid1[i - 1][j - 1];
 			}
 			else
 				continue;
