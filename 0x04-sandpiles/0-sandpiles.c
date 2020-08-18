@@ -1,5 +1,5 @@
 #include "sandpiles.h"
-void my_print_grid(int grid[3][3]);
+static void print_grid(int grid[3][3]);
 /**
  * sandpiles_sum - Computes the sum of two sandpiles
  *
@@ -10,536 +10,96 @@ void my_print_grid(int grid[3][3]);
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-    int i, j;
-    int big[5][5];
+	int i, j;
+	int big[5][5];
+	int unstable;
 
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                big[i][j] = grid1[i-1][j-1] + grid2[i-1][j-1];
-            }
-            else 
-            {
-                big[i][j] = -1;
-            }            
+	unstable = 0;
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			grid1[i][j] = grid1[i][j] + grid2[i][j];
+			if (grid1[i][j] > 3)
+			{
+				unstable = 1;
+			}
+		}
+	}
 
-        }
-    }
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
+	while (unstable)
+	{
+		print_grid(grid1);
+		unstable = 0;
+		for (i = 0; i < 5; i++)
+		{
+			for (j = 0; j < 5; j++)
+			{
+				if ((i > 0 && i < 4) && (j > 0 && j < 4))
+				{
+					big[i][j] = grid1[i - 1][j - 1];
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
 
+		for (i = 0; i < 5; i++)
+		{
+			for (j = 0; j < 5; j++)
+			{
+				if ((i > 0 && i < 4) && (j > 0 && j < 4))
+				{
+					if (grid1[i - 1][j - 1] > 3)
+					{
+						big[i - 1][j] += 1;
+						big[i + 1][j] += 1;
+						big[i][j - 1] += 1;
+						big[i][j + 1] += 1;
+						big[i][j] -= 4;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
 
-my_print_grid(grid1);
-/* Centro  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i==2)&&(j==2)))
-                    {
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
+		for (i = 0; i < 5; i++)
+		{
+			for (j = 0; j < 5; j++)
+			{
+				if ((i > 0 && i < 4) && (j > 0 && j < 4))
+				{
+					grid1[i - 1][j - 1] = big[i][j];
+					if (grid1[i - 1][j - 1] > 3)
+					{
+						unstable = 1;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
 
-                            }
-                                
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                    
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-
-    
-    my_print_grid(grid1);
-
-/* Esquinas  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==0))
-                    {
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-
-    
-    my_print_grid(grid1);
-
-/* Medios */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==1))
-                    {
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                big[i][j] = big[i][j] - 4;
-
-                            }
-                                
-                        }
-                    }
-                          else
-                    {
-                        continue;
-                    }              
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-    
-
- 
-
-my_print_grid(grid1);
-/* Centro  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i==2)&&(j==2)))
-                    {
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                              else
-                    {
-                        continue;
-                    }          
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-
-    
-    my_print_grid(grid1);
-
-/* Esquinas  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==0))
-                    {
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                       else
-                    {
-                        continue;
-                    }                 
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-
-    
-    my_print_grid(grid1);
-
-/* Medios */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==1))
-                    {
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                big[i][j] = big[i][j] - 4;
-
-                            }
-                                
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-    
-
-
-
-my_print_grid(grid1);
-/* Centro  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i==2)&&(j==2))){
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-    
-    my_print_grid(grid1);
-
-/* Esquinas  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==0)){
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                          else
-                    {
-                        continue;
-                    }              
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-
-    
-    my_print_grid(grid1);
-
-/* Medios */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==1)){
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                big[i][j] = big[i][j] - 4;
-
-                            }
-                                
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }             
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-    
-
-
-my_print_grid(grid1);
-/* Centro  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i==2)&&(j==2))){
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }                   
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-    
-    my_print_grid(grid1);
-
-
-/* Esquinas  */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==0)){
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i][j] = big[i][j] - 4;
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                
-
-                            }
-                                
-                        }
-                    }
-                      else
-                    {
-                        continue;
-                    }                  
-                }
-            }
-
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
-
-    
-    my_print_grid(grid1);
-
-/* Medios */
-            for (i = 0; i < 5; i++)
-            {
-                for (j = 0; j < 5; j++)
-                {
-                    if((i>0 && i<4) && ((j>0 && j<4)) && ((i+j)%2==1)){
-                        {
-                            if (big[i][j] > 3)
-                            {
-                                big[i-1][j] = big[i-1][j] + 1;
-                                big[i+1][j] = big[i+1][j] + 1;
-                                big[i][j-1] = big[i][j-1] + 1;
-                                big[i][j+1] = big[i][j+1] + 1;
-                                big[i][j] = big[i][j] - 4;
-
-                            }
-                                
-                        }
-                    }
-                        else
-                    {
-                        continue;
-                    }                
-                }
-            }
-    for (i = 0; i < 5; i++)
-    {
-        for (j = 0; j < 5; j++)
-        {
-            if((i>0 && i<4) && ((j>0 && j<4)))
-            {
-                grid1[i-1][j-1] = big[i][j];
-            }
-        }
-    }
+		if (unstable == 0)
+		{
+			break;
+		}
+	}
 }
 
 /**
-* my_print_grid - Prints a 3 by 3 grid.
+* print_grid - Prints a 3 by 3 grid.
 * @grid: Grid to be printed.
 */
 
-void (int grid[3][3])
+static void print_grid(int grid[3][3])
 {
 	int i, j;
 
