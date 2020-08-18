@@ -36,12 +36,12 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 			{
 				if (grid1[i - 1][j - 1] > 3)
 				{
+					unstable = 1;
 					big[i - 1][j] += 1;
 					big[i + 1][j] += 1;
 					big[i][j - 1] += 1;
 					big[i][j + 1] += 1;
 					big[i][j] -= 4;
-					unstable = 1;
 				}
 			}
 		}
