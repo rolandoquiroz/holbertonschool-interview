@@ -31,7 +31,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	while (unstable)
 	{
 		print_grid(grid1);
-		unstable = 0;
+
 		for (i = 0; i < 5; i++)
 		{
 			for (j = 0; j < 5; j++)
@@ -63,6 +63,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 			}
 		}
 
+		unstable = 0;
 		for (i = 0; i < 5; i++)
 		{
 			for (j = 0; j < 5; j++)
