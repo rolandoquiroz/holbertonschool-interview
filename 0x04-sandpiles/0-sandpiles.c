@@ -1,4 +1,5 @@
 #include "sandpiles.h"
+
 static void print_grid(int grid[3][3]);
 /**
  * sandpiles_sum - Computes the sum of two sandpiles
@@ -36,13 +37,9 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 			for (j = 0; j < 5; j++)
 			{
 				if ((i > 0 && i < 4) && (j > 0 && j < 4))
-				{
 					big[i][j] = grid1[i - 1][j - 1];
-				}
 				else
-				{
 					continue;
-				}
 			}
 		}
 
@@ -62,9 +59,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 					}
 				}
 				else
-				{
 					continue;
-				}
 			}
 		}
 
@@ -76,21 +71,15 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 				{
 					grid1[i - 1][j - 1] = big[i][j];
 					if (grid1[i - 1][j - 1] > 3)
-					{
 						unstable = 1;
-					}
 				}
 				else
-				{
 					continue;
-				}
 			}
 		}
 
 		if (unstable == 0)
-		{
 			break;
-		}
 	}
 }
 
