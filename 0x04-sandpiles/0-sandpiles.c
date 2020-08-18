@@ -16,57 +16,44 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	int unstable;
 
 	unstable = 0;
-	for (i = 0; i < 5; i++)
+	for (i = 1; i <= 3; i++)
 	{
-		for (j = 0; j < 5; j++)
+		for (j = 1; j <= 3; j++)
 		{
-			if ((i > 0 && i < 4) && (j > 0 && j < 4))
-			{
-				grid1[i - 1][j - 1] += grid2[i - 1][j - 1];
-				if (grid1[i - 1][j - 1] > 3)
-					unstable = 1;
-				big[i][j] = grid1[i - 1][j - 1];
-			}
-			else
-				continue;
+			grid1[i - 1][j - 1] += grid2[i - 1][j - 1];
+			if (grid1[i - 1][j - 1] > 3)
+				unstable = 1;
+			big[i][j] = grid1[i - 1][j - 1];
 		}
 	}
 
 	while (unstable)
 	{
 		unstable = 0;
-		for (i = 0; i < 5; i++)
+		for (i = 1; i <= 3; i++)
 		{
-			for (j = 0; j < 5; j++)
+			for (j = 1; j <= 3; j++)
 			{
-				if ((i > 0 && i < 4) && (j > 0 && j < 4))
+				if (grid1[i - 1][j - 1] > 3)
 				{
-					if (grid1[i - 1][j - 1] > 3)
-					{
-						big[i - 1][j] += 1;
-						big[i + 1][j] += 1;
-						big[i][j - 1] += 1;
-						big[i][j + 1] += 1;
-						big[i][j] -= 4;
-						unstable = 1;
-					}
+					big[i - 1][j] += 1;
+					big[i + 1][j] += 1;
+					big[i][j - 1] += 1;
+					big[i][j + 1] += 1;
+					big[i][j] -= 4;
+					unstable = 1;
 				}
-				else
-					continue;
 			}
 		}
 
 		if (unstable)
 			print_grid(grid1);
 
-		for (i = 0; i < 5; i++)
+		for (i = 1; i <= 3; i++)
 		{
-			for (j = 0; j < 5; j++)
+			for (j = 1; j <= 3; j++)
 			{
-				if ((i > 0 && i < 4) && (j > 0 && j < 4))
-					grid1[i - 1][j - 1] = big[i][j];
-				else
-					continue;
+				grid1[i - 1][j - 1] = big[i][j];
 			}
 		}
 	}
