@@ -36,6 +36,8 @@ int is_palindrome(listint_t **head)
 	}
 
 	ans = are_list_equal(auxiliar, first_half_reversed);
+	free_listint(auxiliar);
+	free_listint(first_half_reversed);
 
 	return (ans);
 }
