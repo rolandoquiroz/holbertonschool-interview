@@ -15,15 +15,15 @@ try:
             if information[0] in readed_status_codes.keys():
                 readed_status_codes[information[0]] += 1
         if lines != 0 and lines % 10 == 0:
-            print("File size: {}".format(file_size))
+            print("File size:", file_size)
             for key, value in sorted(readed_status_codes.items()):
                 if value != 0:
                     print('{}: {}'.format(key, value))
         lines += 1
-except KeyboardInterrupt:
+except Exception:
     pass
 finally:
-    print("File size: {}".format(file_size))
+    print("File size:", file_size)
     for key, value in sorted(readed_status_codes.items()):
         if value != 0:
             print('{}: {}'.format(key, value))
