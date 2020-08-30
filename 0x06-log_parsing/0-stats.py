@@ -9,7 +9,7 @@ file_size = 0
 lines = 0
 try:
     for line in sys.stdin:
-        information = list(map(int, (line.partition('1"')[2]).split()))
+        information = list(map(int, line.split()[-2:]))
         if len(information) == 2:
             file_size += information[1]
             if information[0] in readed_status_codes.keys():
@@ -20,7 +20,7 @@ try:
                 if value != 0:
                     print('{}: {}'.format(key, value))
         lines += 1
-except Exception:
+except KeyboardInterrupt:
     pass
 finally:
     print("File size:", file_size)
