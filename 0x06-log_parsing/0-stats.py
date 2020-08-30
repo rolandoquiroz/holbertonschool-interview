@@ -8,7 +8,8 @@ readed_status_codes = {200: 0, 301: 0, 400: 0, 401: 0,
 file_size = 0
 lines = 0
 try:
-    for line in sys.stdin:
+    while (True):
+        line = sys.stdin.readline()
         information = list(map(int, (line.partition('1"')[2]).split()))
         if len(information) == 2:
             file_size += information[1]
