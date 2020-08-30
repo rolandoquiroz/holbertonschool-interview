@@ -9,7 +9,6 @@ file_size = 0
 lines = 0
 try:
     for line in sys.stdin:
-        line = sys.stdin.readline()
         information = list(map(int, (line.partition('1"')[2]).split()))
         if len(information) == 2:
             file_size += information[1]
