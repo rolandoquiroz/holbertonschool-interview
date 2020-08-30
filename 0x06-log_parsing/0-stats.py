@@ -10,7 +10,7 @@ lines = 0
 try:
     for line in sys.stdin:
         information = list(map(int, line.split()[-2:]))
-        if len(information) == 2:
+        if len(information) >= 2:
             file_size += information[1]
             if information[0] in readed_status_codes.keys():
                 readed_status_codes[information[0]] += 1
