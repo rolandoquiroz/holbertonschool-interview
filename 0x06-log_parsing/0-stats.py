@@ -20,7 +20,7 @@ try:
                 if value != 0:
                     print("{}: {}".format(key, value))
         lines += 1
-except Exception:
+except KeyboardInterrupt as error:
     pass
 finally:
     print("File size:", file_size)
