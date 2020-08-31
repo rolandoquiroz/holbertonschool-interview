@@ -20,9 +20,6 @@ try:
                 if value != 0:
                     print("{}: {}".format(key, value))
         lines += 1
-
-except KeyboardInterrupt as error:
-    pass
 finally:
     print("File size:", file_size)
     for key, value in sorted(readed_status_codes.items()):
