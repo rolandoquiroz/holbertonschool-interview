@@ -11,9 +11,9 @@ try:
     for line in sys.stdin:
         information = list(line.split(" ")[-2:])
         if len(information) >= 2:
-            file_size += int(information[1])
             if information[0] in readed_status_codes.keys():
                 readed_status_codes[information[0]] += 1
+            file_size += int(information[1])
         if (lines % 10) == 0:
             print("File size:", file_size)
             for key, value in sorted(readed_status_codes.items()):
