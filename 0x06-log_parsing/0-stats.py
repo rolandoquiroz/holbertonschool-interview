@@ -26,4 +26,4 @@ finally:
     print("File size: {:d}".format(file_size))
     for key, value in sorted(readed_status_codes.items()):
         if value != 0:
-            print('{}: {}'.format(key, value))
+            print('{}: {:d}'.format(key, value))
