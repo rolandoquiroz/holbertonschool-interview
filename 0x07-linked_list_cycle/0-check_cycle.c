@@ -9,5 +9,17 @@
  */
 int check_cycle(listint_t *list)
 {
+	listint_t *t = list, *h = list;
 
+	while (t && h && h->next)
+	{
+		t = t->next;
+		h = h->next->next;
+
+		if (t == h)
+		{
+			return (1);
+		}
+	}
+	return (0);
 }
