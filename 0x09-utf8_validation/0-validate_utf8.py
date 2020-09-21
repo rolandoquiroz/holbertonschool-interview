@@ -32,6 +32,7 @@ def validUTF8(data):
             else:
                 return False
         if (224 <= data[i] <= 239):
+            checked.append(1)
             for j in range(1, 3):
                 if (128 <= data[i+j] <= 191):
                     checked.append(1)
