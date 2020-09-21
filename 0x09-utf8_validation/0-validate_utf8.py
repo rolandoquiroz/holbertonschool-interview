@@ -20,30 +20,31 @@ def validUTF8(data):
 
     checked = []
     i = 0
-    while i < (len(data)):
-        if (data[i] & 255 > 247):
+    while (len(data)) > (len(checked)):
+        if ((data[i] & 255) > 247):
             return False
-        if (0 <= data[i] & 255 <= 127):
+        if (0 <= (data[i] & 255) <= 127):
             checked.append(1)
-        if (192 <= data[i] & 255 <= 223):
+        if (192 <= (data[i] & 255) <= 223):
             checked.append(1)
-            if (128 <= data[i+1] & 255 <= 191):
+            if (128 <= (data[i+1] & 255) <= 191):
                 checked.append(1)
             else:
                 return False
-        if (224 <= data[i] & 255 <= 239):
+        if (224 <= (data[i] & 255) <= 239):
             checked.append(1)
             for j in range(1, 3):
-                if (128 <= data[i+j] & 255 <= 191):
+                if (128 <= (data[i+j] & 255) <= 191):
                     checked.append(1)
                 else:
                     return False
-        if (240 <= data[i] & 255 <= 247):
+        if (240 <= (data[i] & 255) <= 247):
             checked.append(1)
             for j in range(1, 4):
-                if (128 <= data[i+j] & 255 <= 191):
+                if (128 <= (data[i+j] & 255) <= 191):
                     checked.append(1)
                 else:
                     return False
         i += 1
+    print(checked)
     return all(checked)
