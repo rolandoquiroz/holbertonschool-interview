@@ -46,5 +46,4 @@ def validUTF8(data):
                 else:
                     return False
         i += 1
-    print(checked)
     return all(checked)
