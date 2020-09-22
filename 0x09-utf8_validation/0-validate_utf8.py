@@ -15,7 +15,7 @@ def validUTF8(data):
         Returns:
             True if data is a valid UTF-8 encoding, else return False
     """
-    n_bytes = 0
+    bytes_number = 0
     mask1 = 0b10000000
     mask2 = 0b01000000
     for num in data:
