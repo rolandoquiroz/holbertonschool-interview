@@ -20,7 +20,7 @@ def validUTF8(data):
 
     checked = []
     i = 0
-    while (len(data)) > (len(checked)):
+    while (i < len(data)):
         if (0 <= (data[i] & 255) <= 127):
             checked.append(1)
         if (192 <= (data[i] & 255) <= 223):
