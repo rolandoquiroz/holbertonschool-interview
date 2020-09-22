@@ -21,6 +21,8 @@ def validUTF8(data):
     checked = []
     i = 0
     while (i < len(data)):
+        if (128 <= (data[i] & 255) <= 191):
+            return False
         if (0 <= (data[i] & 255) <= 127):
             checked.append(1)
         if (192 <= (data[i] & 255) <= 223):
@@ -31,6 +33,7 @@ def validUTF8(data):
                         checked.append(1)
                     else:
                         return False
+                i += 1
             except IndexError:
                 return False
         if (224 <= (data[i] & 255) <= 239):
@@ -41,6 +44,7 @@ def validUTF8(data):
                         checked.append(1)
                     else:
                         return False
+                i += 2
             except IndexError:
                 return False
         if (240 <= (data[i] & 255) <= 247):
@@ -51,6 +55,7 @@ def validUTF8(data):
                         checked.append(1)
                     else:
                         return False
+                i += 3
             except IndexError:
                 return False
         if ((data[i] & 255) > 247):
