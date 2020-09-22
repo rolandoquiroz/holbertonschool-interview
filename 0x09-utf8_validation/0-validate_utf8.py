@@ -15,51 +15,21 @@ def validUTF8(data):
         Returns:
             True if data is a valid UTF-8 encoding, else return False
     """
-    if data == [] or len(data) == 0:
-        return False
-
-    if all(isinstance(i, int) for i in data):
-        checked = []
-        i = 0
-        while (i < len(data)):
-            if (128 <= (data[i] & 255) <= 191):
+    n_bytes = 0
+    mask1 = 1 << 7
+    mask2 = 1 << 6
+    for num in data:
+        mask = 1 << 7
+        if n_bytes == 0:
+            while mask & num:
+                n_bytes += 1
+                mask = mask >> 1
+            if n_bytes == 0:
+                continue
+            if n_bytes == 1 or n_bytes > 4:
                 return False
-            if (0 <= (data[i] & 255) <= 127):
-                checked.append(1)
-            if (192 <= (data[i] & 255) <= 223):
-                checked.append(1)
-                try:
-                    for j in range(1, 2):
-                        if (128 <= (data[i+j] & 255) <= 191):
-                            checked.append(1)
-                        else:
-                            return False
-                    i += 1
-                except IndexError:
-                    return False
-            if (224 <= (data[i] & 255) <= 239):
-                checked.append(1)
-                try:
-                    for j in range(1, 3):
-                        if (128 <= (data[i+j] & 255) <= 191):
-                            checked.append(1)
-                        else:
-                            return False
-                    i += 2
-                except IndexError:
-                    return False
-            if (240 <= (data[i] & 255) <= 247):
-                checked.append(1)
-                try:
-                    for j in range(1, 4):
-                        if (128 <= (data[i+j] & 255) <= 191):
-                            checked.append(1)
-                        else:
-                            return False
-                    i += 3
-                except IndexError:
-                    return False
-            if ((data[i] & 255) > 247):
+        else:
+            if not (num & mask1 and not (num & mask2)):
                 return False
-            i += 1
-    return all(checked)
+        n_bytes -= 1
+    return n_bytes == 0
