@@ -13,23 +13,23 @@ def validUTF8(data):
             data: `list`, the data is represented by a list of integers
 
         Returns:
-            True if data is a valid UTF-8 encoding, else return False
+            True if data is a vaflid UTF-8 encoding, else return False
     """
-    bytes_count = 0
+    number_of_bytes = 0
     mask1 = 0b10000000
     mask2 = 0b01000000
     for number in data:
         mask = 0b10000000
-        if bytes_count == 0:
+        if number_of_bytes == 0:
             while mask & number:
-                bytes_count += 1
+                number_of_bytes += 1
                 mask = mask >> 1
-            if bytes_count == 0:
+            if number_of_bytes == 0:
                 continue
-            if bytes_count == 1 or bytes_count > 4:
+            if number_of_bytes == 1 or number_of_bytes > 4:
                 return False
         else:
             if not (number & mask1 and not (number & mask2)):
                 return False
-        bytes_count -= 1
-    return bytes_count == 0
+        number_of_bytes -= 1
+    return number_of_bytes == 0
