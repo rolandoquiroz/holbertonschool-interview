@@ -16,20 +16,20 @@ def validUTF8(data):
             True if data is a valid UTF-8 encoding, else return False
     """
     n_bytes = 0
-    mask1 = 1 << 7
-    mask2 = 1 << 6
+    mask1 = 0b10000000
+    mask2 = 0b01000000
     for num in data:
-        mask = 1 << 7
-        if n_bytes == 0:
+        mask = 0b10000000
+        if bytes_number == 0:
             while mask & num:
-                n_bytes += 1
+                bytes_number += 1
                 mask = mask >> 1
-            if n_bytes == 0:
+            if bytes_number == 0:
                 continue
-            if n_bytes == 1 or n_bytes > 4:
+            if bytes_number == 1 or bytes_number > 4:
                 return False
         else:
             if not (num & mask1 and not (num & mask2)):
                 return False
-        n_bytes -= 1
-    return n_bytes == 0
+        bytes_number -= 1
+    return bytes_number == 0
