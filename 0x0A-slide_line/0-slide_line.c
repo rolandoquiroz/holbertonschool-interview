@@ -20,7 +20,7 @@ int slide_line(int *line, size_t size, int direction)
 		return (0);
 	}
 	my_size = (int) size;
-	
+
 	j = 0;
 	for (i = 0; i < my_size; i++)
 	{
@@ -30,6 +30,10 @@ int slide_line(int *line, size_t size, int direction)
 		}
 	}
 	count = j;
+	for (i = j; i < my_size; i++)
+	{
+		line[i] = 0;
+	}
 	for (i = 0; i < count; i++)
 	{
 		if (line[i] == line[i + 1])
