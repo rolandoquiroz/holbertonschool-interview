@@ -8,7 +8,7 @@
 */
 void menger(int level)
 {
-	int i, j, size, height, width;
+	int i, j, height, width, size;
 	char character;
 
 	size = pow(3, level);
