@@ -86,7 +86,7 @@ int slide_line(int *line, size_t size, int direction)
 				j++;
 			}
 		}
-		for (k = j; i > -1; i++)
+		for (k = j; i > -1; i--)
 		{
 			line[i] = 0;
 		}
