@@ -49,6 +49,7 @@ int slide_line(int *line, size_t size, int direction)
 				j--;
 			}
 		}
+		/* adding zeros right */
     	while (j < my_size)
 		{
 			line[j++] = 0; 
@@ -83,6 +84,7 @@ int slide_line(int *line, size_t size, int direction)
 				j++;
 			}
 		}
+		/* adding zeros left */
     	while (j > -1)
 		{
 			line[j--] = 0; 
