@@ -1,5 +1,4 @@
 #include "slide_line.h"
-#include <stdio.h>
 /**
  * slide_line - Slides and merges an array of integers
  * @line: points to an lineay of integers containing size elements
@@ -47,10 +46,13 @@ int slide_line(int *line, size_t size, int direction)
 				for (k = i + 1; k < j; k++)
 				{
 					line[k] = line[k + 1];
-					line[j] = 0;
 				}
 				j--;
 			}
+		}
+		for (i = k; i < my_size; i++)
+		{
+			line[i] = 0;
 		}
 	}
 	if (direction == 1)
@@ -65,7 +67,6 @@ int slide_line(int *line, size_t size, int direction)
 			}
 		}
 		count = j;
-		printf("j: %d\n", j);
 		for (i = j; i > -1; i--)
 		{
 			line[i] = 0;
@@ -81,12 +82,14 @@ int slide_line(int *line, size_t size, int direction)
 				for (k = i - 1; k > j; k--)
 				{
 					line[k] = line[k - 1];
-					line[j] = 0;
 				}
 				j++;
 			}
 		}
-
+		for (k = j; i < my_size; i++)
+		{
+			line[i] = 0;
+		}
 	}
 
 	return (1);
