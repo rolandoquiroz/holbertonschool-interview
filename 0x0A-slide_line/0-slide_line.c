@@ -31,9 +31,9 @@ int slide_line(int *line, size_t size, int direction)
 				line[j++] = line[i];
 			}
 		}
-    	while (j < my_size)
+		while (j < my_size)
 		{
-			line[j++] = 0; 
+			line[j++] = 0;
 		}
 		/* merge to left*/
 		for (i = 0; i < j; i++)
@@ -50,9 +50,9 @@ int slide_line(int *line, size_t size, int direction)
 			}
 		}
 		/* adding zeros right */
-    	while (j < my_size)
+		while (j < my_size)
 		{
-			line[j++] = 0; 
+			line[j++] = 0;
 		}
 	}
 	if (direction == 1)
@@ -66,9 +66,9 @@ int slide_line(int *line, size_t size, int direction)
 				line[j--] = line[i];
 			}
 		}
-    	while (j > -1)
+		while (j > -1)
 		{
-			line[j--] = 0; 
+			line[j--] = 0;
 		}
 		/* merge to left*/
 		for (i = my_size - 1; i > j; i--)
@@ -85,9 +85,9 @@ int slide_line(int *line, size_t size, int direction)
 			}
 		}
 		/* adding zeros left */
-    	while (j > -1)
+		while (j > -1)
 		{
-			line[j--] = 0; 
+			line[j--] = 0;
 		}
 	}
 
