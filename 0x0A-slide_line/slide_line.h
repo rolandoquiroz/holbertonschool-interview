@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 
-int slide_line(int *line, size_t size, int direction);
+int slide_line(int *, size_t, int);
 void slide_line_left(int *, int);
 void slide_line_right(int *, int);
 
