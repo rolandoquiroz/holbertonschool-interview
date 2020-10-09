@@ -11,7 +11,7 @@
  */
 int slide_line(int *line, size_t size, int direction)
 {
-	int i, j, k, my_size, count = 0;
+	int i, j, k, my_size;
 
 	if (line == NULL || size < 1 || (direction != 0 && direction != 1))
 	{
@@ -31,14 +31,12 @@ int slide_line(int *line, size_t size, int direction)
 				line[j++] = line[i];
 			}
 		}
-		count = j;
-		for (i = j; i < my_size; i++)
+    	while (j < my_size)
 		{
-			line[i] = 0;
+			line[j++] = 0; 
 		}
 		/* merge to left*/
-		j = count;
-		for (i = 0; i < count; i++)
+		for (i = 0; i < j; i++)
 		{
 			if (line[i] == line[i + 1])
 			{
@@ -51,9 +49,9 @@ int slide_line(int *line, size_t size, int direction)
 				j--;
 			}
 		}
-		for (; k < my_size; k++)
+    	while (j < my_size)
 		{
-			line[i] = 0;
+			line[j++] = 0; 
 		}
 	}
 	if (direction == 1)
@@ -67,14 +65,12 @@ int slide_line(int *line, size_t size, int direction)
 				line[j--] = line[i];
 			}
 		}
-		count = j;
-		for (i = j; i > -1; i--)
+    	while (j > -1)
 		{
-			line[i] = 0;
+			line[j--] = 0; 
 		}
 		/* merge to left*/
-		j = count;
-		for (i = my_size - 1; i > count; i--)
+		for (i = my_size - 1; i > j; i--)
 		{
 			if (line[i] == line[i - 1])
 			{
@@ -87,9 +83,9 @@ int slide_line(int *line, size_t size, int direction)
 				j++;
 			}
 		}
-		for (; k > -1; k--)
+    	while (j > -1)
 		{
-			line[i] = 0;
+			line[j--] = 0; 
 		}
 	}
 
