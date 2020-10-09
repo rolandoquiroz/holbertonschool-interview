@@ -4,8 +4,7 @@
  * slide_line_left - Slides and merges an array of integers
  * @line: points to an lineay of integers containing size elements
  * that must be slided & merged
- * @my_size: size of the lineay of integers pointed by line
- * of integers. direction can be either SLIDE_LEFT or SLIDE_RIGHT
+ * @my_size: size of the lineay of integers pointed by line of integers
  * Return: nothing
  */
 void slide_line_left(int *line, int my_size)
@@ -54,8 +53,7 @@ void slide_line_left(int *line, int my_size)
  * slide_line_right - Slides and merges an array of integers
  * @line: points to an lineay of integers containing size elements
  * that must be slided & merged
- * @my_size: size of the lineay of integers pointed by line
- * of integers. direction can be either SLIDE_LEFT or SLIDE_RIGHT
+ * @my_size: size of the lineay of integers pointed by line of integers.
  * Return: nothing
  */
 void slide_line_right(int *line, int my_size)
