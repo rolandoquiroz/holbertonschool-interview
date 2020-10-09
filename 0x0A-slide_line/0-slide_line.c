@@ -24,30 +24,36 @@ int slide_line(int *line, size_t size, int direction)
 	{
 		/* slide to left */
 		j = 0;
-		for (i = 0; i < my_size; i++)
+		i = 0;
+		while (i < my_size)
 		{
 			if (line[i] != 0)
 			{
 				line[j++] = line[i];
 			}
+			i++;
 		}
 		while (j < my_size)
 		{
 			line[j++] = 0;
 		}
 		/* merge to left*/
-		for (i = 0; i < j; i++)
+		i = 0;
+		while (i < j)
 		{
 			if (line[i] == line[i + 1])
 			{
 				line[i] = line[i] + line[i + 1];
 				/* shifting left next array elements */
-				for (k = i + 1; k < j; k++)
+				k = i + 1;
+				while (k < j)
 				{
 					line[k] = line[k + 1];
+					k++;
 				}
 				j--;
 			}
+			i++;
 		}
 		/* adding zeros right */
 		while (j < my_size)
@@ -59,19 +65,22 @@ int slide_line(int *line, size_t size, int direction)
 	{
 		/* slide to right */
 		j = my_size - 1;
-		for (i = my_size - 1; i > -1; i--)
+		i = my_size - 1;
+		while (i > -1)
 		{
 			if (line[i] != 0)
 			{
 				line[j--] = line[i];
 			}
+			i--;
 		}
 		while (j > -1)
 		{
 			line[j--] = 0;
 		}
 		/* merge to left*/
-		for (i = my_size - 1; i > j; i--)
+		i = my_size - 1;
+		while (i > j)
 		{
 			if (line[i] == line[i - 1])
 			{
@@ -83,6 +92,7 @@ int slide_line(int *line, size_t size, int direction)
 				}
 				j++;
 			}
+			i--;
 		}
 		/* adding zeros left */
 		while (j > -1)
@@ -90,6 +100,5 @@ int slide_line(int *line, size_t size, int direction)
 			line[j--] = 0;
 		}
 	}
-
 	return (1);
 }
