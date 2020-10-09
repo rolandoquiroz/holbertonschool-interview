@@ -49,6 +49,7 @@ void slide_line_left(int *line, int my_size)
 		line[j++] = 0;
 	}
 }
+
 /**
  * slide_line_right - Slides and merges an array of integers
  * @line: points to an lineay of integers containing size elements
