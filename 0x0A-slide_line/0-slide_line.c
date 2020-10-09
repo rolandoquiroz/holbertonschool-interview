@@ -32,7 +32,6 @@ int slide_line(int *line, size_t size, int direction)
 			}
 		}
 		count = j;
-		printf("counter: %d\n", j);
 		for (i = j; i < my_size; i++)
 		{
 			line[i] = 0;
