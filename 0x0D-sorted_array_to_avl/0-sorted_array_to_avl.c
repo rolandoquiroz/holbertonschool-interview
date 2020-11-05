@@ -81,6 +81,6 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 		return (NULL);
 	}
 
-	root = insert_new_avl_node(array, 0, size - 1, NULL);
+	root = insert_new_avl_node(array, NULL, size - 1, 0);
 	return (root);
 }
