@@ -25,6 +25,8 @@ struct binary_tree_s
 typedef struct binary_tree_s binary_tree_t;
 typedef struct binary_tree_s avl_t;
 void binary_tree_print(const binary_tree_t *);
+avl_t *insert_new_avl_node(int *array, size_t start, size_t end, avl_t *parent);
+avl_t *new_avl_node(avl_t *parent, size_t n);
 avl_t *sorted_array_to_avl(int *array, size_t size);
 
 #endif /* _BINARY_TREES_H_ */
