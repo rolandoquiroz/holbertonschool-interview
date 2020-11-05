@@ -7,7 +7,7 @@
 * @parent: pointer to the parent of the new node
 * Return: binary tree, otherwise NULL
 */
-avl_t *insert_new_avl_node(int *array, avl_t *parent, size_t start, size_t end)
+avl_t *insert_new_avl_node(int *array, size_t start, size_t end, avl_t *parent)
 {
 	size_t half;
 	avl_t *root;
@@ -27,12 +27,12 @@ avl_t *insert_new_avl_node(int *array, avl_t *parent, size_t start, size_t end)
 
 	if (half != start)
 	{
-		root->left = insert_new_avl_node(array, root, start, half - 1);
+		root->left = insert_new_avl_node(array, start, half - 1, root);
 	}
 
 	if (half != end)
 	{
-		root->right = insert_new_avl_node(array, root, half + 1, end);
+		root->right = insert_new_avl_node(array, half + 1, end, root);
 	}
 
 
@@ -81,6 +81,6 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 		return (NULL);
 	}
 
-	root = insert_new_avl_node(array, NULL, size - 1, 0);
+	root = insert_new_avl_node(array, 0, size - 1, NULL);
 	return (root);
 }
