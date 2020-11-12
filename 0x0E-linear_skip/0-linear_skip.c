@@ -23,7 +23,7 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	while (value > left->express->n)
 	{
 		printf("Value checked at index [%lu] = [%d]\n",
-		       left->express->index, left->express->n);
+		left->express->index, left->express->n);
 		left = left->express;
 		if (left->express == NULL)
 		{
@@ -34,22 +34,22 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	if (left->express)
 	{
 		printf("Value checked at index [%lu] = [%d]\n",
-		       left->express->index, left->express->n);
+			   left->express->index, left->express->n);
 		printf("Value found between indexes [%lu] and [%lu]\n",
-		       left->index, left->express->index);
+			   left->index, left->express->index);
 	}
 	else
 	{
 		printf("Value found between indexes [%lu] and [%lu]\n",
-		       left->index, len(list));
+			   left->index, len(list));
 	}
-	
+
 	right = left;
 
 	while (value >= right->next->n)
 	{
 		printf("Value checked at index [%lu] = [%d]\n",
-		       right->index, right->n);
+			   right->index, right->n);
 		right = right->next;
 		if (right->next == NULL || value == right->n)
 		{
@@ -69,8 +69,8 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 /**
  * len - Calculate length of the list
  * @list: is a pointer to the head of the skip list to measure in
- * 
- * Return: The lenght of the list 
+ *
+ * Return: The lenght of the list
  */
 size_t len(skiplist_t *list)
 {
