@@ -72,7 +72,7 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
  * 
  * Return: The lenght of the list 
  */
-size_t count(skiplist_t *list)
+size_t len(skiplist_t *list)
 {
 	size_t n = 0;
 
