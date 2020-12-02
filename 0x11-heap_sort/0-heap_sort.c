@@ -54,7 +54,10 @@ void sift_down(int array[], int root, int bottom, size_t size)
 	if (maxChild < bottom)
 	{
 		otherChild = maxChild + 1;
-		maxChild = (array[otherChild] > array[maxChild]) ? otherChild : maxChild;
+		if (array[otherChild] > array[maxChild])
+			maxChild = otherChild;
+		else
+			maxChild = maxChild;
 	}
 	else
 	{
