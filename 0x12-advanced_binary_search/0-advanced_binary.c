@@ -64,7 +64,7 @@ void print_array(int *array, int i, int j)
 	if (i <= j)
 	{
 		printf(" %d", array[i]);
-		if (i < (j))
+		if (i < j)
 			printf(",");
 		print_array(array, i + 1, j);
 	}
