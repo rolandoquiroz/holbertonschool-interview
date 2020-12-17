@@ -1,51 +1,47 @@
 #!/usr/bin/python3
+"""
+module 0-count
+function count_words
+"""
 import requests
 
 
-def count_words(subreddit, word_list, kw_cont={}, next_pg=None, reap_kw={}):
-    """all hot posts by keyword"""
-    headers = {"User-Agent": "rolandoquiroz"}
-
-    if next_pg:
-        subRhot = requests.get('https://reddit.com/r/' + subreddit +
-                               '/hot.json?after=' + next_pg,
-                               headers=headers)
-    else:
-        subRhot = requests.get('https://reddit.com/r/' + subreddit +
-                               '/hot.json', headers=headers)
-
-    if subRhot.status_code == 404:
-        return
-
-    if kw_cont == {}:
+def count_words(subreddit, word_list, after="", counter={}, i=0):
+    """Recursive function that  (case-insensitive, delimited by spaces.
+    Javascript should count as javascript, but java should not).
+    Args:
+        subreddit: (str)
+            subreddit to search
+        word_list: (list)
+            words to search
+        titles: (list)
+            titles of the subreddit
+    Returns:
+        None
+    """
+    url = "https://api.reddit.com/r/{}/hot?after={}".format(subreddit, after)
+    if i == 0:
         for word in word_list:
-            kw_cont[word] = 0
-            reap_kw[word] = word_list.count(word)
-
-    subRhot_dict = subRhot.json()
-    subRhot_data = subRhot_dict['data']
-    next_pg = subRhot_data['after']
-    subRhot_posts = subRhot_data['children']
-
-    for post in subRhot_posts:
-        post_data = post['data']
-        post_title = post_data['title']
-        title_words = post_title.split()
-        for w in title_words:
-            for key in kw_cont:
-                if w.lower() == key.lower():
-                    kw_cont[key] += 1
-
-    if next_pg:
-        count_words(subreddit, word_list, kw_cont, next_pg, reap_kw)
-
-    else:
-        for key, val in reap_kw.items():
-            if val > 1:
-                kw_cont[key] *= val
-
-        sorted_abc = sorted(kw_cont.items(), key=lambda x: x[0])
-        sorted_res = sorted(sorted_abc, key=lambda x: (-x[1], x[0]))
-        for res in sorted_res:
-            if res[1] > 0:
-                print('{}: {}'.format(res[0], res[1]))
+            counter[word] = 0
+    headers = {"User-Agent": "linux:1:v1.0 (by /u/rolandoquiroz)"}
+    json = requests.get(url, headers=headers).json()
+    try:
+        key = json['data']['after']
+        parent = json['data']['children']
+        for my_obj in parent:
+            for word in counter:
+                counter[word] += my_obj['data']['title'].lower().split(
+                    ' ').count(word.lower())
+        if key is not None:
+            count_words(subreddit,
+                        word_list,
+                        key,
+                        counter,
+                        1)
+        else:
+            ans = sorted(counter.items(), key=lambda i: i[1], reverse=True)
+            for key, value in ans:
+                if value != 0:
+                    print('{}: {}'.format(key, value))
+    except Exception:
+        return None
