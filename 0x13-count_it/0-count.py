@@ -34,8 +34,8 @@ def count_words(subreddit, word_list, keyword_count={}, next_page=None,
         response = requests.get(url,
                                 headers=headers)
 
-    if response.status_code != 200:
-        return None
+    if response.status_code == 404:
+        return
 
     if keyword_count == {}:
         for word in word_list:
