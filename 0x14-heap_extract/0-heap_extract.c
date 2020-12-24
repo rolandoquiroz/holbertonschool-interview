@@ -1,8 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_preorder - Recursive function thath goes through a binary tree
- * using pre-order traversal
+ * binary_tree_preorder - pre-order traversal that goes through a binary tree
  * @tree: pointer to root
  * @node: pointer to node in the tree
  * @h: height of the tree
@@ -13,7 +12,7 @@
 
 void binary_tree_preorder(heap_t *tree, heap_t **node, size_t h, size_t level)
 {
-	if (!tree)
+	if (tree == NULL)
 		return;
 	if (h == level)
 		*node = tree;
