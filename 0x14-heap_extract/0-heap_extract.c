@@ -7,7 +7,8 @@
  * @node: pointer to node in the tree
  * @h: height of the tree
  * @level: layer in the tree
- * Return: Nothing(void)
+ *
+ * Return: Nothing
  **/
 
 void binary_tree_preorder(heap_t *tree, heap_t **node, size_t h, size_t level)
@@ -27,31 +28,33 @@ void binary_tree_preorder(heap_t *tree, heap_t **node, size_t h, size_t level)
 
 /**
  * binary_tree_height - Function that measures the height of a binary tree
- * @tree: pointer to the node
- * Return: The height of the tree from node
+ * @tree: Pointer to the root node of the tree to measure the height
+ *
+ * Return: 1 if node is a leaf, otherwise 0. If node is NULL, return 0
  **/
 
 size_t binary_tree_height(const heap_t *tree)
 {
-	size_t left, right;
+	size_t height_left = 0, height_right = 0;
 
-	if (!tree)
-		return (0);
-	if (!tree->left && !tree->right)
+	if ((tree == NULL) || ((tree->left == NULL) && (tree->right == NULL)))
 		return (0);
 
-	right = binary_tree_height(tree->right) + 1;
-	left = binary_tree_height(tree->left) + 1;
+	if (tree->left)
+		height_left = binary_tree_height(tree->left);
+	if (tree->right)
+		height_right = binary_tree_height(tree->right);
 
-	if (left > right)
-		return (left);
+	if (height_left >= height_right)
+		return (height_left + 1);
 	else
-		return (right);
+		return (height_right + 1);
 }
 
 /**
  * heap_extract - Function that extracts the root node from a Max Binary Heap
  * @root: is a double pointer to the root node of the heap
+ *
  * Return: The value stored in the root node, otherwhise 0 on Fail
  **/
 
