@@ -1,6 +1,27 @@
 #include "holberton.h"
 
 /**
+ * _isdigit - function that checks for a digit (0 through 9).
+ * @c: int c
+ *
+ * Return: 1 if c is digit, 0 otherwise
+ */
+int _isdigit(char c)
+{
+	int ret;
+
+	if (c > 47 && c < 58)
+	{
+		ret = 1;
+	}
+	else
+	{
+		ret = 0;
+	}
+	return (ret);
+}
+
+/**
  * _strcmp - Function that compares two strings.
  * @s1: char *s1
  * @s2: char *s2
@@ -75,6 +96,24 @@ void _memmove(void *dest, void *src, int n)
 }
 
 /**
+ * error - Function to print error and exit 98.
+ * Return: Nothing (void)
+ */
+
+void error(void)
+{
+	int i;
+	char err[] = "Error\n";
+
+	for (i = 0; i <= 5; i++)
+	{
+		_putchar(err[i]);
+	}
+	exit(98);
+}
+
+
+/**
  * longmulti - Function to copy block of 'n' bytes from source
  * address 'src' to destination address 'dest'
  * @a: char *dest
@@ -87,18 +126,9 @@ void longmulti(const char *a, const char *b, char *c)
 	int i = 0, j = 0, k = 0, n, carry;
 	int la, lb;
 
-	/* either is zero, return "0" */
 	if (!_strcmp(a, "0") || !_strcmp(b, "0"))
 	{
 		c[0] = '0', c[1] = '\0';
-		return;
-	}
-
-	if (i || j)
-	{
-		if (k)
-			c[0] = '-';
-		longmulti(a + i, b + j, c + k);
 		return;
 	}
 
@@ -133,17 +163,27 @@ void longmulti(const char *a, const char *b, char *c)
 int main(int argc, char *argv[])
 {
 	char c[1024];
-	int i, j;
+	int i;
 
 	if (argc != 3)
-	{
-	char err[] = "Error\n";
+		error();
 
-	for (j = 0; j <= 5; j++)
+	i = 0;
+	while ((argv[1])[i] != '\0')
 	{
-		_putchar(err[j]);
+		if (_isdigit((argv[1])[i]))
+			i++;
+		else
+			error();
 	}
-	exit(98);
+
+	i = 0;
+	while ((argv[2])[i] != '\0')
+	{
+		if (_isdigit((argv[2])[i]))
+			i++;
+		else
+			error();
 	}
 
 	longmulti(argv[1], argv[2], c);
