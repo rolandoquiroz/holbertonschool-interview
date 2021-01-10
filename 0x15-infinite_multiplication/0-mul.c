@@ -189,6 +189,11 @@ int main(int argc, char *argv[])
 	longmulti(argv[1], argv[2], c);
 
 	i = 0;
+	while (c[i] == '0')
+	{
+		i++;
+	}
+
 	while (c[i] != '\0')
 	{
 		_putchar(c[i]);
