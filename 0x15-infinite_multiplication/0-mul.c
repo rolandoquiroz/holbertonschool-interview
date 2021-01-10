@@ -162,7 +162,7 @@ void longmulti(const char *a, const char *b, char *c)
  */
 int main(int argc, char *argv[])
 {
-	char c[1024];
+	char c[10240];
 	int i;
 
 	if (argc != 3)
@@ -188,8 +188,9 @@ int main(int argc, char *argv[])
 
 	longmulti(argv[1], argv[2], c);
 
+
 	i = 0;
-	while (c[i] == '0')
+	while (c[i] == '0' && c[i + 1] != '\0')
 	{
 		i++;
 	}
