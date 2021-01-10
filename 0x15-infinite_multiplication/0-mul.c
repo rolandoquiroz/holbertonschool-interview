@@ -3,7 +3,6 @@
 /**
  * _isdigit - function that checks for a digit (0 through 9).
  * @c: int c
- *
  * Return: 1 if c is digit, 0 otherwise
  */
 int _isdigit(char c)
@@ -27,7 +26,7 @@ int _isdigit(char c)
  * @s2: char *s2
  * Return: int
  */
-int _strcmp(const char *s1, const char *s2)
+int _strcmp(char *s1, char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2)
 	{
@@ -42,7 +41,7 @@ int _strcmp(const char *s1, const char *s2)
  * @s: char *s String to be processed
  * Return: the length of a string
  */
-int _strlen(const char *s)
+int _strlen(char *s)
 {
 	int len = 0;
 
@@ -99,7 +98,6 @@ void _memmove(void *dest, void *src, int n)
  * error - Function to print error and exit 98.
  * Return: Nothing (void)
  */
-
 void error(void)
 {
 	int i;
@@ -112,7 +110,6 @@ void error(void)
 	exit(98);
 }
 
-
 /**
  * longmulti - Function to copy block of 'n' bytes from source
  * address 'src' to destination address 'dest'
@@ -121,7 +118,7 @@ void error(void)
  * @c: unsigned int n
  * Return: char
  */
-void longmulti(const char *a, const char *b, char *c)
+void longmulti(char *a, char *b, char *c)
 {
 	int i = 0, j = 0, k = 0, n, carry;
 	int la, lb;
@@ -137,7 +134,7 @@ void longmulti(const char *a, const char *b, char *c)
 	_memset(c, '0', la + lb);
 	c[la + lb] = '\0';
 
-#	define I(a) (a - '0')
+	#define I(a) (a - '0')
 	for (i = la - 1; i >= 0; i--)
 	{
 		for (j = lb - 1, k = i + j + 1, carry = 0; j >= 0; j--, k--)
@@ -148,7 +145,7 @@ void longmulti(const char *a, const char *b, char *c)
 		}
 		c[k] += carry;
 	}
-#	undef I
+	#undef I
 	if (c[0] == '0')
 		_memmove(c, c + 1, la + lb);
 }
@@ -157,7 +154,6 @@ void longmulti(const char *a, const char *b, char *c)
  * main - prints buffer in hexa
  * @argc: the address of memory to print
  * @argv: the size of the memory to print
- *
  * Return: Nothing.
  */
 int main(int argc, char *argv[])
@@ -188,7 +184,6 @@ int main(int argc, char *argv[])
 
 	longmulti(argv[1], argv[2], c);
 
-
 	i = 0;
 	while (c[i] == '0' && c[i + 1] != '\0')
 	{
@@ -201,5 +196,6 @@ int main(int argc, char *argv[])
 		i++;
 	}
 	_putchar('\n');
+
 	return (0);
 }
