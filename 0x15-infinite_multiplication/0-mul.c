@@ -189,9 +189,7 @@ int main(int argc, char *argv[])
 
 	i = 0;
 	while (c[i] == '0' && c[i + 1] != '\0')
-	{
 		i++;
-	}
 
 	while (c[i] != '\0')
 	{
