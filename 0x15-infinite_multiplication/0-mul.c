@@ -1,8 +1,8 @@
 #include "holberton.h"
 
 /**
- * _isdigit - function that checks for a digit (0 through 9).
- * @c: int c
+ * _isdigit - function that checks for a digit character (0 through 9).
+ * @c: char c
  * Return: 1 if c is digit, 0 otherwise
  */
 int _isdigit(char c)
@@ -10,21 +10,41 @@ int _isdigit(char c)
 	int ret;
 
 	if (c > 47 && c < 58)
-	{
 		ret = 1;
-	}
 	else
-	{
 		ret = 0;
-	}
+
 	return (ret);
 }
 
 /**
+ * alldigits - function that checks for a digit character (0 through 9).
+ * @c: char c
+ * Return: 1 if c is digit, 0 otherwise
+ */
+void alldigits(char *c)
+{
+	int i = 0;
+
+	while (c[i] != '\0')
+	{
+		if (_isdigit(c[i]))
+			i++;
+		else
+			error();
+	}
+}
+
+/**
  * _strcmp - Function that compares two strings.
- * @s1: char *s1
- * @s2: char *s2
- * Return: int
+ * @s1: char *s1 string to be compared
+ * @s2: char *s2 string to be compared
+ * Return:
+ * < 0 the first character that does not match
+ * has a lower value in ptr1 than in ptr2
+ * 0 the contents of both strings are equal
+ * > 0 the first character that does not match
+ * has a greater value in ptr1 than in ptr2
  */
 int _strcmp(char *s1, char *s2)
 {
@@ -38,7 +58,7 @@ int _strcmp(char *s1, char *s2)
 
 /**
  * _strlen - function that returns the length of a string.
- * @s: char *s String to be processed
+ * @s: char *s string to be measured
  * Return: the length of a string
  */
 int _strlen(char *s)
@@ -46,9 +66,7 @@ int _strlen(char *s)
 	int len = 0;
 
 	while (s[len] != '\0')
-	{
 		++len;
-	}
 	return (len);
 }
 
@@ -101,21 +119,20 @@ void _memmove(void *dest, void *src, int n)
 void error(void)
 {
 	int i;
-	char err[] = "Error\n";
+	char e[] = "Error\n";
 
 	for (i = 0; i <= 5; i++)
 	{
-		_putchar(err[i]);
+		_putchar(e[i]);
 	}
 	exit(98);
 }
 
 /**
- * longmulti - Function to copy block of 'n' bytes from source
- * address 'src' to destination address 'dest'
- * @a: char *dest
- * @b: char *src
- * @c: unsigned int n
+ * longmulti - Function that implements long multiplication karatsuba
+ * @a: char *a
+ * @b: char *b
+ * @c: char int n
  * Return: char
  */
 void longmulti(char *a, char *b, char *c)
@@ -151,10 +168,10 @@ void longmulti(char *a, char *b, char *c)
 }
 
 /**
- * main - prints buffer in hexa
- * @argc: the address of memory to print
- * @argv: the size of the memory to print
- * Return: Nothing.
+ * main - main function
+ * @argc: arguments count
+ * @argv: arguments vector
+ * Return: 0 en success
  */
 int main(int argc, char *argv[])
 {
@@ -164,23 +181,9 @@ int main(int argc, char *argv[])
 	if (argc != 3)
 		error();
 
-	i = 0;
-	while ((argv[1])[i] != '\0')
-	{
-		if (_isdigit((argv[1])[i]))
-			i++;
-		else
-			error();
-	}
+	alldigits(argv[1]);
 
-	i = 0;
-	while ((argv[2])[i] != '\0')
-	{
-		if (_isdigit((argv[2])[i]))
-			i++;
-		else
-			error();
-	}
+	alldigits(argv[2]);
 
 	longmulti(argv[1], argv[2], c);
 

@@ -6,6 +6,7 @@
 
 int _putchar(char c);
 int _isdigit(char c);
+void alldigits(char *c);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 char *_memset(char *s, char b, unsigned int n);
