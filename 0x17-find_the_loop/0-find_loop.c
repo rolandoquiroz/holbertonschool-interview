@@ -2,34 +2,36 @@
 #include "lists.h"
 
 /**
- * find_listint_loop - find the loop in a linked list.
- * @head: pointer to a pointer to a list to the first element of a list.
- * Return: addrress of the node wherer the loop starts, or NULL if no node.
+ * find_listint_loop - function that find the loop in a linked list.
+ * @head: pointer to a pointer to the first element of a linked list.
+ * Return: address of the node where the loop starts, or NULL if no node.
  */
 listint_t *find_listint_loop(listint_t *head)
 {
-	listint_t *fast;
-	listint_t *slow;
+	listint_t *fastPtr;
+	listint_t *slowPtr;
 
 	if (head == NULL)
 		return (NULL);
 
-	fast = head;
-	slow = head;
+	/* Implementation of Floyd's Algorithm */
 
-	while (fast != NULL && fast->next != NULL && fast->next->next != NULL)
+	fastPtr = head;
+	slowPtr = head;
+
+	while (fastPtr && fastPtr->next && fastPtr->next->next)
 	{
-		slow = slow->next;
-		fast = fast->next->next;
-		if (slow == fast)
+		slowPtr = slowPtr->next;
+		fastPtr = fastPtr->next->next;
+		if (slowPtr == fastPtr)
 		{
-			slow = head;
-			while (slow != fast)
+			slowPtr = head;
+			while (slowPtr != fastPtr)
 			{
-				slow = slow->next;
-				fast = fast->next;
+				slowPtr = slowPtr->next;
+				fastPtr = fastPtr->next;
 			}
-			return (fast);
+			return (fastPtr);
 		}
 	}
 	return (NULL);
