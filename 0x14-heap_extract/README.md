@@ -1,5 +1,4 @@
-0x0F. Star Wars API# 
-<p align="center">
+ <p align="center">
   <img src="https://github.com/rolandoquiroz/images/blob/master/seahorse-draw.png" />
 </p>
 

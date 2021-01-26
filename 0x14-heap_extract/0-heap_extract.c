@@ -1,31 +1,6 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_preorder - pre-order traversal that goes through a binary tree
- * @tree: pointer to root
- * @node: pointer to node in the tree
- * @h: height of the tree
- * @level: layer in the tree
- *
- * Return: Nothing
- **/
-
-void binary_tree_preorder(heap_t *tree, heap_t **node, size_t h, size_t level)
-{
-	if (tree == NULL)
-		return;
-	if (h == level)
-		*node = tree;
-
-	level++;
-
-	if (tree->left)
-		binary_tree_preorder(tree->left, node, h, level);
-	if (tree->right)
-		binary_tree_preorder(tree->right, node, h, level);
-}
-
-/**
  * binary_tree_height - Function that measures the height of a binary tree
  * @tree: Pointer to the root node of the tree to measure the height
  *
@@ -48,6 +23,31 @@ size_t binary_tree_height(const heap_t *tree)
 		return (height_left + 1);
 	else
 		return (height_right + 1);
+}
+
+/**
+ * binary_tree_preorder - pre-order traversal that goes through a binary tree
+ * @tree: pointer to root
+ * @node: pointer to node in the tree
+ * @h: height of the tree
+ * @level: layer in the tree
+ *
+ * Return: Nothing
+ **/
+
+void binary_tree_preorder(heap_t *tree, heap_t **node, size_t h, size_t level)
+{
+	if (tree == NULL)
+		return;
+	if (h == level)
+		*node = tree;
+
+	level++;
+
+	if (tree->left)
+		binary_tree_preorder(tree->left, node, h, level);
+	if (tree->right)
+		binary_tree_preorder(tree->right, node, h, level);
 }
 
 /**
