@@ -1,71 +1,54 @@
 #include "sort.h"
 
 /**
- * print - Function to print message
- * @array: array of integers
- * @right: right subarry
- * @left: left subarry
- * @lidx: index of the left subarray
- * @ridx: index of the right subarray
- * @size: size of array
- * Return: Nothing(void)
+ * merge - Merge the arrays back together so that their elements are in order
+ * @array: The array to be sorted
+ * @size: Number of elements in @array
+ * @m: Middle index
+ *
+ * Returns: Nothing
  */
-void print(int *array, int *right, int *left, int lidx, int ridx, size_t size)
+void merge(int *array, int size, int m)
 {
-	printf("Merging...\n");
-	printf("[left]: ");
-	print_array(left, lidx);
-	printf("[right]: ");
-	print_array(right, ridx);
-	printf("[Done]: ");
-	print_array(array, size);
-}
+	int i, j, k;
+	int *sub_array;
 
-/**
- * merge - Helper function to merge two subarrays of integer
- * @array: array of integers
- * @right: right subarry
- * @left: left subarry
- * @size: size of array
- * Return: Nothing(void)
- */
-void merge(int *array, int *right, int *left, size_t size)
-{
-	int i = 0, j = 0, k = 0;
-	int lidx, ridx;
+	sub_array = malloc(size * sizeof(int));
+	if (sub_array == NULL)
+		return;
 
-	lidx = size / 2;
-	ridx = size - lidx;
-
-	while (i < lidx && j < ridx)
+	for (i = 0, j = m, k = 0; k < size; k++)
 	{
-		if (left[i] <= right[j])
+		if (j == size)
 		{
-			array[k] = left[i];
-			i++;
+			sub_array[k] = array[i++];
 		}
-		else
+		else 
 		{
-			array[k] = right[j];
-			j++;
+			if (i == m)
+			{
+				sub_array[k] = array[j++];
+			}
+			else
+			{
+				if (array[j] < array[i])
+				{
+					sub_array[k] = array[j++];
+				}
+				else
+				{
+					sub_array[k] = array[i++];
+				}
+			}
 		}
-		k++;
 	}
 
-	while (i < lidx)
+	for (i = 0; i < size; i++)
 	{
-		array[k] = left[i];
-		i++;
-		k++;
+		array[i] = sub_array[i];
 	}
 
-	while (j < ridx)
-	{
-		array[k] = right[j];
-		j++;
-		k++;
-	}
-	print(array, right, left, lidx, ridx, size);
+	free(sub_array);
 }
 
 /**
@@ -73,26 +56,18 @@ void merge(int *array, int *right, int *left, size_t size)
  *              using the Merge Sort algorithm
  * @array: The array to be sorted
  * @size: Number of elements in @array
- * 
+ *
  * Returns: Nothing
  */
 void merge_sort(int *array, size_t size)
 {
-	size_t mid, idx;
-	int right[300], left[300];
+	int m;
 
-	mid = size / 2;
-
-	if (size < 2 || array == NULL)
+	if (size < 2)
 		return;
-
-	for (idx = 0; idx < mid; idx++)
-		left[idx] = array[idx];
-
-	for (idx = mid;  idx < size; idx++)
-		right[idx - mid] = array[idx];
-
-	merge_sort(left, mid);
-	merge_sort(right, size - mid);
-	merge(array, right, left, size);
+	m = size / 2;
+	
+	merge_sort(array, m);
+	merge_sort(array + m, size - m);
+	merge(array, size, m);
 }
