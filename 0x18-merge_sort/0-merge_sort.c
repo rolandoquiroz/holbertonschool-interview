@@ -24,34 +24,14 @@ void merge(int *array, int size)
 
 	for (i = 0, j = size / 2, k = 0; k < size; k++)
 	{
-		if (j == size)
-		{
-			sub_array[k] = array[i++];
-		}
-		else
-		{
-			if (i == size / 2)
-			{
-				sub_array[k] = array[j++];
-			}
-			else
-			{
-				if (array[j] < array[i])
-				{
-					sub_array[k] = array[j++];
-				}
-				else
-				{
-					sub_array[k] = array[i++];
-				}
-			}
-		}
+		sub_array[k] = j == size ? array[i++]
+		: i == size / 2 ? array[j++]
+		: array[j] < array[i] ? array[j++]
+		: array[i++];
 	}
 
 	for (i = 0; i < size; i++)
-	{
 		array[i] = sub_array[i];
-	}
 
 	free(sub_array);
 
