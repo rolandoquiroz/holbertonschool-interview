@@ -33,10 +33,10 @@ void merge(int *array, int size)
 	for (i = 0; i < size; i++)
 		array[i] = sub_array[i];
 
-	free(sub_array);
-
 	printf("[Done]: ");
 	print_array(array, size);
+
+	free(sub_array);
 }
 
 /**
