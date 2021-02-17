@@ -4,26 +4,20 @@
  * merge - Merge the arrays back together so that their elements are in order
  * @array: The array to be sorted
  * @size: Number of elements in @array
- * @mid: Middle index
  *
  * Returns: Nothing
  */
-void merge(int *array, int size, int mid)
+void merge(int *array, int *sub_array, int size)
 {
 	int i, j, k;
-	int *sub_array;
-
-	sub_array = malloc(size * sizeof(int));
-	if (sub_array == NULL)
-		return;
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	print_array(array, mid);
+	print_array(array, size / 2);
 	printf("[right]: ");
-	print_array(array + mid, size - mid);
+	print_array(array + size / 2, size - size / 2);
 
-	for (i = 0, j = mid, k = 0; k < size; k++)
+	for (i = 0, j = size / 2, k = 0; k < size; k++)
 	{
 		if (j == size)
 		{
@@ -31,7 +25,7 @@ void merge(int *array, int size, int mid)
 		}
 		else
 		{
-			if (i == mid)
+			if (i == size / 2)
 			{
 				sub_array[k] = array[j++];
 			}
@@ -53,6 +47,7 @@ void merge(int *array, int size, int mid)
 	{
 		array[i] = sub_array[i];
 	}
+
 	free(sub_array);
 
 	printf("[Done]: ");
@@ -69,14 +64,16 @@ void merge(int *array, int size, int mid)
  */
 void merge_sort(int *array, size_t size)
 {
-	int mid;
+	int *sub_array;
 
 	if (size < 2 || array == NULL)
 		return;
 
-	mid = size / 2;
+	sub_array = malloc(size * sizeof(int));
+	if (sub_array == NULL)
+		return;
 
-	merge_sort(array, mid);
-	merge_sort(array + mid, size - mid);
-	merge(array, size, mid);
+	merge_sort(array, size / 2);
+	merge_sort(array + size / 2, size - size / 2);
+	merge(array, sub_array, size);
 }
