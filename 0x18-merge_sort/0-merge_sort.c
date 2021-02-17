@@ -1,58 +1,92 @@
 #include "sort.h"
 
 /**
- * merge - Merge the arrays back together so that their elements are in order
- * @array: The array to be sorted
- * @size: Number of elements in @array
- *
- * Returns: Nothing
- */
-void merge(int *array, int size)
+ * merge_caller - Calls merge to merge previously divided arrays
+ * @array: List of data
+ * @sub_array: Holder for array
+ * @left: Starting index
+ * @right: Ending index
+**/
+void merge_caller(int *sub_array, int *array, int left, int right)
 {
-	int i, j, k;
-	int *sub_array;
+	int mid;
 
-	sub_array = malloc(size * sizeof(int));
-	if (sub_array == NULL)
-		return;
-
-	printf("Merging...\n");
-	printf("[left]: ");
-	print_array(array, size / 2);
-	printf("[right]: ");
-	print_array(array + size / 2, size - size / 2);
-
-	for (i = 0, j = size / 2, k = 0; k < size; k++)
+	if (right - left > 1)
 	{
-		sub_array[k] = j == size ? array[i++]
-		: i == size / 2 ? array[j++]
-		: array[j] < array[i] ? array[j++]
-		: array[i++];
+		mid = left + (right - left) / 2;
+		merge_caller(sub_array, array, left, mid);
+		merge_caller(sub_array, array, mid, right);
+		merge(sub_array, array, left, mid, right);
 	}
-
-	for (i = 0; i < size; i++)
-		array[i] = sub_array[i];
-
-	printf("[Done]: ");
-	print_array(array, size);
-
-	free(sub_array);
 }
 
 /**
- * merge_sort - Sorts an array of integers in ascending order
- *              using the Merge Sort algorithm
- * @array: The array to be sorted
- * @size: Number of elements in @array
- *
- * Returns: Nothing
- */
+ * merge - Merges divided arrays into one
+ * @array: List of data
+ * @sub_array: Holder for array
+ * @left: Starting index
+ * @mid: Middle index
+ * @right: Ending index
+**/
+void merge(int *sub_array, int *array, int left, int mid, int right)
+{
+	int i, j, k = 0;
+
+	printf("Merging...\n");
+	printf("[left]: ");
+	print_array(array + left, mid - left);
+	printf("[right]: ");
+	print_array(array + mid, right - mid);
+	for (i = left, j = mid; i < mid && j < right; k++)
+	{
+		if (array[i] < array[j])
+		{
+			sub_array[k] = array[i];
+			i++;
+		}
+		else
+		{
+			sub_array[k] = array[j];
+			j++;
+		}
+	}
+	while (i < mid)
+	{
+		sub_array[k] = array[i];
+		i++;
+		k++;
+	}
+	while (j < right)
+	{
+		sub_array[k] = array[j];
+		j++;
+		k++;
+	}
+	for (i = 0, k = left; k < right; k++)
+	{
+		array[k] = sub_array[i];
+		i++;
+	}
+	printf("[Done]: ");
+	print_array(array + left, right - left);
+}
+
+/**
+ * merge_sort - Sorts an array with Merge sort algorithm
+ * @array: List of data
+ * @size: Size of the array
+**/
 void merge_sort(int *array, size_t size)
 {
-	if (size < 2 || array == NULL)
+	int *sub_array;
+
+	if (size < 2)
 		return;
 
-	merge_sort(array, size / 2);
-	merge_sort(array + size / 2, size - size / 2);
-	merge(array, size);
+	sub_array = malloc(sizeof(int) * size);
+	if (sub_array == NULL)
+		return;
+
+	merge_caller(sub_array, array, 0, size);
+	free(sub_array);
 }
