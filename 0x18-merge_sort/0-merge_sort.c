@@ -80,7 +80,7 @@ void merge_sort(int *array, size_t size)
 {
 	int *sub_array;
 
-	if (size < 2)
+	if (size < 2 || array == NULL)
 		return;
 
 	sub_array = malloc(sizeof(int) * size);
