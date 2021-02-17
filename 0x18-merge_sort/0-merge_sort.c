@@ -1,6 +1,66 @@
 #include "sort.h"
 
 /**
+ * merge - Merge the arrays back together so that their elements are in order
+ * @array: The array to be sorted
+ * @size: Number of elements in @array
+ * @mid: Middle index
+ *
+ * Returns: Nothing
+ */
+void merge(int *array, int size, int mid)
+{
+	int i, j, k;
+	int *sub_array;
+
+	sub_array = malloc(size * sizeof(int));
+	if (sub_array == NULL)
+		return;
+
+	printf("Merging...\n");
+	printf("[left]: ");
+	print_array(array, size / 2);
+	printf("[right]: ");
+	print_array(array + size / 2, size - size / 2);
+
+	for (i = 0, j = mid, k = 0; k < size; k++)
+	{
+		if (j == size)
+		{
+			sub_array[k] = array[i++];
+		}
+		else
+		{
+			if (i == mid)
+			{
+				sub_array[k] = array[j++];
+			}
+			else
+			{
+				if (array[j] < array[i])
+				{
+					sub_array[k] = array[j++];
+				}
+				else
+				{
+					sub_array[k] = array[i++];
+				}
+			}
+		}
+	}
+
+	for (i = 0; i < size; i++)
+	{
+		array[i] = sub_array[i];
+	}
+
+	printf("[Done]: ");
+	print_array(sub_array, size);
+
+	free(sub_array);
+}
+
+/**
  * merge_sort - Sorts an array of integers in ascending order
  *              using the Merge Sort algorithm
  * @array: The array to be sorted
@@ -10,91 +70,14 @@
  */
 void merge_sort(int *array, size_t size)
 {
-	int *temp;
-
-	if (size < 2)
-		return;
-
-	temp = malloc(sizeof(int) * size);
-	if (temp == NULL)
-		return;
-
-	to_merge(array, temp, 0, size);
-	free(temp);
-}
-
-/**
- * to_merge - Merge the arrays back together
- *            so that their elements are in order
- * @array: List of data
- * @temp: Holder for array
- * @start: Starting index
- * @end: Ending index
- *
- * Returns: Nothing
- */
-void to_merge(int *array, int *temp, int start, int end)
-{
 	int mid;
 
-	if (end - start > 1)
-	{
-		mid = start + (end - start) / 2;
-		to_merge(array, temp, start, mid);
-		to_merge(array, temp, mid, end);
-		merger(array, temp, start, mid, end);
-	}
-}
+	if (size < 2 || array == NULL)
+		return;
 
-/**
- * merger - Merges divided arrays into one
- * @array: List of data
- * @temp: Holder for array
- * @start: Starting index
- * @mid: Middle index
- * @end: Ending index
- *
- * Returns: Nothing
-**/
-void merger(int *array, int *temp, int start, int mid, int end)
-{
-	int i, j, k = 0;
+	mid = size / 2;
 
-	printf("Merging...\n");
-	printf("[start]: ");
-	print_array(array + start, mid - start);
-	printf("[end]: ");
-	print_array(array + mid, end - mid);
-	for (i = start, j = mid; i < mid && j < end; k++)
-	{
-		if (array[i] < array[j])
-		{
-			temp[k] = array[i];
-			i++;
-		}
-		else
-		{
-			temp[k] = array[j];
-			j++;
-		}
-	}
-	while (i < mid)
-	{
-		temp[k] = array[i];
-		i++;
-		k++;
-	}
-	while (j < end)
-	{
-		temp[k] = array[j];
-		j++;
-		k++;
-	}
-	for (i = 0, k = start; k < end; k++)
-	{
-		array[k] = temp[i];
-		i++;
-	}
-	printf("[Done]: ");
-	print_array(array + start, end - start);
+	merge_sort(array, mid);
+	merge_sort(array + mid, size - mid);
+	merge(array, size, mid);
 }
