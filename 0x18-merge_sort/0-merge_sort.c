@@ -7,9 +7,14 @@
  *
  * Returns: Nothing
  */
-void merge(int *array, int *sub_array, int size)
+void merge(int *array, int size)
 {
 	int i, j, k;
+	int *sub_array;
+
+	sub_array = malloc(size * sizeof(int));
+	if (sub_array == NULL)
+		return;
 
 	printf("Merging...\n");
 	printf("[left]: ");
@@ -64,16 +69,10 @@ void merge(int *array, int *sub_array, int size)
  */
 void merge_sort(int *array, size_t size)
 {
-	int *sub_array;
-
 	if (size < 2 || array == NULL)
-		return;
-
-	sub_array = malloc(size * sizeof(int));
-	if (sub_array == NULL)
 		return;
 
 	merge_sort(array, size / 2);
 	merge_sort(array + size / 2, size - size / 2);
-	merge(array, sub_array, size);
+	merge(array, size);
 }
