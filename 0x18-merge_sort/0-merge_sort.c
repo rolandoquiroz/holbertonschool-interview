@@ -19,9 +19,9 @@ void merge(int *array, int size, int mid)
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	print_array(array, size / 2);
+	print_array(array, mid);
 	printf("[right]: ");
-	print_array(array + size / 2, size - size / 2);
+	print_array(array + mid, size - mid);
 
 	for (i = 0, j = mid, k = 0; k < size; k++)
 	{
@@ -53,11 +53,10 @@ void merge(int *array, int size, int mid)
 	{
 		array[i] = sub_array[i];
 	}
+	free(sub_array);
 
 	printf("[Done]: ");
-	print_array(sub_array, size);
-
-	free(sub_array);
+	print_array(array, size);
 }
 
 /**
