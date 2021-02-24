@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """function makeChange"""
 
+
 def makeChange(coins, total):
-    """             
+    """
     Function that given a pile of coins of different values, determine
     the fewest number of coins needed to meet a given amount total.
 
@@ -23,16 +24,19 @@ def makeChange(coins, total):
     change : int
         fewest number of coins needed to meet total
     """
-    Opt = [0 for i in range(0, total + 1)]
+    if total < 1:
+        return 0
+
+    optimized = [0 for i in range(0, total + 1)]
 
     n = len(coins)
     for i in range(1, total + 1):
         smallest = float("inf")
         for j in range(0, n):
             if (coins[j] <= i):
-                smallest = min(smallest, Opt[i - coins[j]])
-        Opt[i] = 1 + smallest
+                smallest = min(smallest, optimized[i - coins[j]])
+        optimized[i] = 1 + smallest
 
-    if type(Opt[total]) is float:
+    if type(optimized[total]) is float:
         return -1
-    return Opt[total]
+    return optimized[total]
