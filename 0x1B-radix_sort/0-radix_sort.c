@@ -1,7 +1,5 @@
 #include "sort.h"
 
-int get_max(int a[], int n);
-
 /**
  * radix_sort - Sorts an array of integers in ascending order
  *              using the Radix sort algorithm.
@@ -12,64 +10,41 @@ int get_max(int a[], int n);
  */
 void radix_sort(int *array, size_t size)
 {
+	int MAX = 10;
 	int n = (int)size;
-	int bucket[10][10], bucket_cnt[10];
-	int i, j, k, r, NOP = 0, divisor = 1, lar, pass;
+	int i, bucket[MAX], maxVal = 0, digitPosition = 1;
 
-	lar = get_max(array, n);
-
-	while (lar > 0)
+	for (i = 0; i < n; i++)
 	{
-		NOP++;
-		lar /= 10;
+		if (array[i] > maxVal)
+			maxVal = array[i];
 	}
 
-	for (pass = 0; pass < NOP; pass++)
+	while (maxVal / digitPosition > 0)
 	{
-		for (i = 0; i < 10; i++)
-		{
-			bucket_cnt[i] = 0;
-		}
+		/* reset counter */
+		int digitCount[10] = {0};
 
+		/* count pos-th digits (keys) */
 		for (i = 0; i < n; i++)
-		{
-			r = (array[i] / divisor) % 10;
-			bucket[r][bucket_cnt[r]] = array[i];
-			bucket_cnt[r] += 1;
-		}
+			digitCount[array[i] / digitPosition % 10]++;
 
-		i = 0;
-		for (k = 0; k < 10; k++)
-		{
-			for (j = 0; j < bucket_cnt[k]; j++)
-			{
-				array[i] = bucket[k][j];
-				i++;
-			}
-		}
+		/* accumulated count */
+		for (i = 1; i < 10; i++)
+			digitCount[i] += digitCount[i - 1];
 
-		divisor *= 10;
+		/* To keep the order, start from back side */
+		for (i = n - 1; i >= 0; i--)
+			bucket[--digitCount[array[i] / digitPosition % 10]] = array[i];
+
+		/* rearrange the original array using elements in the bucket */
+		for (i = 0; i < n; i++)
+			array[i] = bucket[i];
+
+		/* move up the digit position */
+		digitPosition *= 10;
 
 		print_array(array, n);
 	}
 
-}
-
-/**
- * get_max - Sorts an array of integers in ascending order
- *
- * @a: The array to be sorted
- * @n: Number of elements in @array
- *
- * Return: Always 0
- */
-int get_max(int a[], int n)
-{
-	int max = a[0];
-
-	for (int i = 1; i < n; i++)
-		if (a[i] > max)
-			max = a[i];
-
-	return (max);
 }
