@@ -45,6 +45,6 @@ void radix_sort(int *array, size_t size)
 		digitPosition *= 10;
 
 		print_array(array, n);
-		}
+	}
 
 }
