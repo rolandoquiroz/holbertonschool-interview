@@ -1,5 +1,34 @@
 #include "sort.h"
 
+
+
+void swap(unsigned *a, unsigned *b) {
+    unsigned tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+/* sort unsigned ints */
+void rad_sort_u(unsigned *from, unsigned *to, unsigned bit)
+{
+	if (!bit || to < from + 1) return;
+ 
+	unsigned *ll = from, *rr = to - 1;
+	for (;;) {
+		/* find left most with bit, and right most without bit, swap */
+		while (ll < rr && !(*ll & bit)) ll++;
+		while (ll < rr &&  (*rr & bit)) rr--;
+		if (ll >= rr) break;
+		swap(ll, rr);
+	}
+ 
+	if (!(bit & *ll) && ll < to) ll++;
+	bit >>= 1;
+ 
+	rad_sort_u(from, ll, bit);
+	rad_sort_u(ll, to, bit);
+}
+
 /**
  * radix_sort - Sorts an array of integers in ascending order
  *              using the Radix sort algorithm.
@@ -10,43 +39,19 @@
  */
 void radix_sort(int *array, size_t size)
 {
-	int MAX = 10;
-	int n = (int)size;
-	int i, bucket[MAX], maxVal = 0, digitPosition = 1;
-
+	size_t i;
+	unsigned *x = (unsigned*) array;
+ 
 	if (array == NULL || size < 2)
 		return;
 
-	for (i = 0; i < n; i++)
-	{
-		if (array[i] > maxVal)
-			maxVal = array[i];
-	}
+	for (i = 0; i < size; i++) 
+            x[i] ^= -2147483648;
+ 
+        rad_sort_u(x, x + size, -2147483648);
+ 
+        for (i = 0; i < size; i++) 
+            x[i] ^= -2147483648;
 
-	while (maxVal / digitPosition > 0)
-	{
-		/* reset counter */
-		int digitCount[10] = {0};
 
-		/* count pos-th digits (keys) */
-		for (i = 0; i < n; i++)
-			digitCount[array[i] / digitPosition % 10]++;
-
-		/* accumulated count */
-		for (i = 1; i < 10; i++)
-			digitCount[i] += digitCount[i - 1];
-
-		/* To keep the order, start from back side */
-		for (i = n - 1; i >= 0; i--)
-			bucket[--digitCount[array[i] / digitPosition % 10]] = array[i];
-
-		/* rearrange the original array using elements in the bucket */
-		for (i = 0; i < n; i++)
-			array[i] = bucket[i];
-
-		/* move up the digit position */
-		digitPosition *= 10;
-
-		print_array(array, n);
-	}
 }
