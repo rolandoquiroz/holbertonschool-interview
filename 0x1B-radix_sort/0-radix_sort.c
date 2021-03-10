@@ -14,6 +14,9 @@ void radix_sort(int *array, size_t size)
 	int n = (int)size;
 	int i, bucket[MAX], maxVal = 0, digitPosition = 1;
 
+	if (array == NULL || size < 2)
+		return;
+
 	for (i = 0; i < n; i++)
 	{
 		if (array[i] > maxVal)
@@ -46,5 +49,4 @@ void radix_sort(int *array, size_t size)
 
 		print_array(array, n);
 	}
-
 }
