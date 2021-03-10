@@ -10,41 +10,42 @@
  */
 void radix_sort(int *array, size_t size)
 {
-	int MAX = 10;
-	int n = (int)size;
-	int i, bucket[MAX], maxVal = 0, digitPosition = 1;
+		int big, i, k, j, div = 1, index;
+	int *copy;
 
-	for (i = 0; i < n; i++)
+	if (array == NULL || size < 2)
+		return;
+	copy = malloc(sizeof(int) * size);
+	if (copy == NULL)
+		return;
+	big = array[0];
+	for (i = 0; i < (int)size; i++)
 	{
-		if (array[i] > maxVal)
-			maxVal = array[i];
+		if (array[i] > big)
+			big = array[i];
 	}
-
-	while (maxVal / digitPosition > 0)
+	for (div = 1; (big / div) > 0; div *= 10)
 	{
-		/* reset counter */
-		int digitCount[10] = {0};
-
-		/* count pos-th digits (keys) */
-		for (i = 0; i < n; i++)
-			digitCount[array[i] / digitPosition % 10]++;
-
-		/* accumulated count */
-		for (i = 1; i < 10; i++)
-			digitCount[i] += digitCount[i - 1];
-
-		/* To keep the order, start from back side */
-		for (i = n - 1; i >= 0; i--)
-			bucket[--digitCount[array[i] / digitPosition % 10]] = array[i];
-
-		/* rearrange the original array using elements in the bucket */
-		for (i = 0; i < n; i++)
-			array[i] = bucket[i];
-
-		/* move up the digit position */
-		digitPosition *= 10;
-
-		print_array(array, n);
+		index = 0;
+		for (i = 0; i < 10; i++)
+		{
+			for (j = 0; j < (int)size; j++)
+			{
+				if (div == 1)
+				{
+					if (array[j] % 10 == i)
+						copy[index] = array[j], index++;
+				}
+				else
+				{
+					if ((array[j] / div) % 10 == i)
+						copy[index] = array[j], index++;
+				}
+			}
+		}
+		for (k = 0; k < (int)size; k++)
+			array[k] = copy[k];
+		print_array(array, size);
 	}
-
+	free(copy);
 }
