@@ -1,74 +1,148 @@
+
 #include "sort.h"
 
-/**
- * findLargestNum - Sorts an array of integers in ascending order
- *              using the Radix sort algorithm.
- *              Implements the LSD radix sort algorithm.
- *
- * @array: The array to be sorted
- * @size: Number of elements in @array
- */
-int findLargestNum(int *array, int size)
-{
-
-	int i;
-	int largestNum = -1;
-
-	for (i = 0; i < size; i++)
-	{
-		if (array[i] > largestNum)
-			largestNum = array[i];
-	}
-
-	return (largestNum);
-}
+int get_digits_number(int n);
+int get_digit(int n, int position);
+int _pow_recursion(int x, int y);
+void algorithm_radix_sort(int *array, int *buckets, int size, int max_digits);
 
 /**
- * radix_sort - Sorts an array of integers in ascending order
- *              using the Radix sort algorithm.
- *              Implements the LSD radix sort algorithm.
- *
- * @array: The array to be sorted
- * @size: Number of elements in @array
- */
+ * radix_sort - Sorting an array of numbers using radix sort
+ * @array: Array
+ * @size: Size of the array
+ * Return: Nothing
+**/
+
 void radix_sort(int *array, size_t size)
 {
-	int n = (int)size;
-  /* Base 10 is used */
-	int i;
-	int semiSorted[n];
-	int significantDigit = 1;
-	int largestNum = findLargestNum(array, n);
+	int *buckets;
+	int max_digits = 0, digit_actual_number, size_int, i;
 
-  /* Loop until we reach the largest significant digit */
-	while (largestNum / significantDigit > 0)
-  	{
+	size_int = (int) size;
 
-		int bucket[10] = { 0 };
+	if (array == NULL || size < 2)
+		return;
 
-    	/* Counts the number of "keys" or digits that will go into each bucket */
-    	for (i = 0; i < n; i++)
-			bucket[(array[i] / significantDigit) % 10]++;
+	buckets = malloc(sizeof(int) * 10);
+	if (buckets == NULL)
+		return;
 
-    /**
-     * Add the count of the previous buckets,
-     * Acquires the indexes after the end of each bucket location in the array
-		 * Works similar to the count sort algorithm
-     **/
-    	for (i = 1; i < 10; i++)
-			bucket[i] += bucket[i - 1];
+	for (i = 0; i < 10; i++)
+		buckets[i] = 0;
 
-    /* Use the bucket to fill a "semiSorted" array */
-    for (i = size - 1; i >= 0; i--)
-    	semiSorted[--bucket[(array[i] / significantDigit) % 10]] = array[i];
+	for (i = 0; i < size_int; i++)
+	{
+		digit_actual_number = get_digits_number(array[i]);
+		if (digit_actual_number > max_digits)
+			max_digits = digit_actual_number;
+	}
 
-
-    for (i = 0; i < n; i++)
-    	array[i] = semiSorted[i];
-
-    /* Move to next significant digit */
-    significantDigit *= 10;
-
-	print_array(array, n);
+	algorithm_radix_sort(array, buckets, size_int, max_digits);
 }
+
+
+/**
+ * get_digits_number- Gets the number of digits from a number
+ * @n: Number
+ * Return: Number of digits
+**/
+
+int get_digits_number(int n)
+{
+	int digits = 0, result = n;
+
+	do {
+		result = result / 10;
+		digits++;
+	} while (result != 0);
+
+	return (digits);
+}
+
+/**
+ * get_digit - Gets a certain digit from a number
+ * @n: Number
+ * @position: Position
+ * Return: Digit of that position
+**/
+
+int get_digit(int n, int position)
+{
+	int result;
+	int power;
+
+	power = _pow_recursion(10, position - 1);
+	result = (n / power) % 10;
+
+	return (result);
+}
+
+/**
+ * _pow_recursion - Function that returns the factorial of a given number
+ * @x: Base
+ * @y: Power
+ *
+ * Return: Result of x raised to the power of y.
+ */
+
+int _pow_recursion(int x, int y)
+{
+	if (y == 0)
+		return (1);
+	else if (y < 0)
+		return (-1);
+
+	return (x * _pow_recursion(x, y - 1));
+}
+
+/**
+ * algorithm_radix_sort - Sorting an array of numbers using radix sort
+ * @array: Array
+ * @buckets: Array of numbers from 0 to 9
+ * @size: Size of the array
+ * @max_digits: Maximum number of digits in the array
+ * Return: Nothing
+**/
+
+void algorithm_radix_sort(int *array, int *buckets, int size, int max_digits)
+{
+	int *sorted_array;
+	int iteration, i, digit;
+
+	sorted_array = malloc(sizeof(int) * size);
+	if (sorted_array == NULL)
+	{
+		free(buckets);
+		return;
+	}
+
+	for (iteration = 1; iteration <= max_digits; iteration++)
+	{
+		for (i = 0; i < 10; i++)
+			buckets[i] = 0;
+
+		for (i = 0; i < size; i++)
+		{
+			digit = get_digit(array[i], iteration);
+			buckets[digit] += 1;
+		}
+
+		for (i = 1; i < 10; i++)
+			buckets[i] += buckets[i - 1];
+
+		for (i = (size - 1); i >= 0; i--)
+		{
+			digit = get_digit(array[i], iteration);
+			sorted_array[buckets[digit] - 1] = array[i];
+			buckets[digit] -= 1;
+		}
+
+		for (i = 0; i < size; i++)
+			array[i] = sorted_array[i];
+
+		print_array(array, size);
+	}
+
+	free(buckets);
+	free(sorted_array);
 }
