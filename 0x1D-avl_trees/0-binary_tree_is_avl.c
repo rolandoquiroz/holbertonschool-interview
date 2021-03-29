@@ -20,14 +20,18 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 		return (0);
 
 	balance = binary_tree_balance(tree);
+
 	if (balance <= 1 && balance >= -1)
 		balance = 1;
 	else
 		balance = 0;
+
 	bst = binary_tree_is_bst(tree);
+
 	if (bst && balance)
 		return (1 * (tree->left ? binary_tree_is_avl(tree->left) : 1) *
 				(tree->right ? binary_tree_is_avl(tree->right) : 1));
+
 	return (0);
 }
 
@@ -58,14 +62,15 @@ int check_order(binary_tree_t *tree, int n, int dir)
 */
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
-
 	if (!tree || !check_order(tree->left, tree->n, 0) ||
 		!check_order(tree->right, tree->n, 1))
 		return (0);
+
 	if ((!tree->left || tree->left->n < tree->n) &&
 		(!tree->right || tree->right->n > tree->n))
 		return (1 * (tree->left ? binary_tree_is_bst(tree->left) : 1) *
 			(tree->right ? binary_tree_is_bst(tree->right) : 1));
+
 	return (0);
 }
 
@@ -79,11 +84,12 @@ size_t binary_tree_height(const binary_tree_t *tree)
 {
 	size_t height_left = 0, height_right = 0;
 
-	if ((tree == NULL) || ((tree->left == NULL) && (tree->right == NULL)))
+	if (tree == NULL || (tree->left == NULL && tree->right == NULL))
 		return (0);
 
 	if (tree->left)
 		height_left = binary_tree_height(tree->left);
+
 	if (tree->right)
 		height_right = binary_tree_height(tree->right);
 
