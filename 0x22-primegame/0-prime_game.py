@@ -93,6 +93,9 @@ def isWinner(x, nums):
     if any(not isinstance(m, int) for m in nums):
         return None
 
+    if any(m == 0 for m in nums):
+        return None
+
     gamers = ['Maria', 'Ben']
 
     wins = []
@@ -109,10 +112,10 @@ def isWinner(x, nums):
         wins.append(gamers[w % 2 - 1])
 
     winner = ''
-    if wins.count('Maria') > wins.count('Ben'):
-        winner = 'Maria'
-    elif wins.count('Maria') < wins.count('Ben'):
-        winner = 'Ben'
+    if wins.count(gamers[0]) > wins.count(gamers[1]):
+        winner = gamers[0]
+    elif wins.count(gamers[0]) < wins.count(gamers[1]):
+        winner = gamers[1]
     else:
         winner = None
 
