@@ -25,7 +25,8 @@ def get_minimum_prime_number(list_of_numbers):
     ''' Function that gets the minimum prime number of a list of numbers'''
     for number in list_of_numbers:
         if isPrime(number):
-            return (number)
+            minimum_prime_number = number
+            return (minimum_prime_number)
 
 
 def filtered_numbers(minimum_prime, list_of_numbers):
@@ -81,10 +82,12 @@ def isWinner(x, nums):
         name of the player that won the most rounds
         If the winner cannot be determined, return None
     """
-    if x != len(nums):
+    length = len(nums)
+
+    if length < 1:
         return None
 
-    if len == 0:
+    if any(not isinstance(m, int) for m in nums):
         return None
 
     gamers = ['Maria', 'Ben']
