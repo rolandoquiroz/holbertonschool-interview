@@ -87,7 +87,7 @@ def isWinner(x, nums):
     if length < 1:
         return None
 
-    if any(not isinstance(m, int) for m in nums):
+    if length != x:
         return None
 
     gamers = ['Maria', 'Ben']
