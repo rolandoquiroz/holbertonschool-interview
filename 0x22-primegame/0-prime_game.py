@@ -84,10 +84,7 @@ def isWinner(x, nums):
     """
     length = len(nums)
 
-    if length < 1:
-        return None
-
-    if length != x:
+    if x < 1:
         return None
 
     if not nums:
