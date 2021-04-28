@@ -2,15 +2,15 @@
 ''' Prime Game '''
 
 
-def isPrime(n):
+def isPrime(number):
     ''' Function that determines if a number is prime'''
-    if (n == 1):
+    if (number == 1):
         return False
-    elif (n == 2):
+    elif (number == 2):
         return True
     else:
-        for x in range(2, n):
-            if(n % x == 0):
+        for n in range(2, number):
+            if(number % n == 0):
                 return False
         return True
 
