@@ -86,6 +86,9 @@ def isWinner(x, nums):
     if any(not isinstance(m, int) for m in nums):
         return None
 
+    if any(m < 1 for m in nums):
+        return None
+
     gamers = ['Maria', 'Ben']
 
     wins = []
