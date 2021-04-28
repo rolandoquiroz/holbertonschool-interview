@@ -96,9 +96,6 @@ def isWinner(x, nums):
         if (type(num) is not int):
             return None
 
-        if num < 0:
-            return None
-
         my_numbers = [n for n in range(1, num + 1)]
         w = 0
         my_minimum_prime_number = get_minimum_prime_number(my_numbers)
