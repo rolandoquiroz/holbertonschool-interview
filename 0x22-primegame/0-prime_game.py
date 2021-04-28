@@ -91,12 +91,12 @@ def isWinner(x, nums):
     players = ['Maria', 'Ben']
 
     wins = []
-    for num in nums:
+    for round in range(x):
 
-        if (type(num) is not int):
+        if (type(nums[round]) is not int):
             return None
 
-        my_numbers = [n for n in range(1, num + 1)]
+        my_numbers = [n for n in range(1, nums[round] + 1)]
         w = 0
         my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         while my_minimum_prime_number is not None:
