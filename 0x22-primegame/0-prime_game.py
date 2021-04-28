@@ -101,9 +101,6 @@ def isWinner(x, nums):
             my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         wins.append(gamers[w % 2 - 1])
 
-    if w == 0:
-        return None
-
     winner = ''
     if wins.count(gamers[0]) > wins.count(gamers[1]):
         winner = gamers[0]
