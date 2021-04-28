@@ -96,7 +96,7 @@ def isWinner(x, nums):
         if (type(num) is not int):
             return None
 
-        if num < 1:
+        if num < 0:
             return None
 
         my_numbers = [n for n in range(1, num + 1)]
