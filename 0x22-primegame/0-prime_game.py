@@ -85,9 +85,6 @@ def isWinner(x, nums):
     if x < 1:
         return None
 
-    if len(nums) != x:
-        return None
-
     players = ['Maria', 'Ben']
 
     wins = []
