@@ -59,6 +59,8 @@ def isWinner(x, nums):
     Third round: 1
     Ben wins because there are no prime numbers for Maria to choose
 
+    Result: Ben has the most wins
+
     Parameters
     ----------
     x : int
@@ -86,7 +88,7 @@ def isWinner(x, nums):
     if any(not isinstance(m, int) for m in nums):
         return None
 
-    gamers = ['Maria', 'Ben']
+    players = ['Maria', 'Ben']
 
     wins = []
     for num in nums:
@@ -95,18 +97,18 @@ def isWinner(x, nums):
         my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         while my_minimum_prime_number is not None:
             w = w + 1
-            my_numbers_filtered = filtered_numbers(my_minimum_prime_number,
+            my_filtered_numbers = filtered_numbers(my_minimum_prime_number,
                                                    my_numbers)
-            my_numbers = my_numbers_filtered
+            my_numbers = my_filtered_numbers
             my_minimum_prime_number = get_minimum_prime_number(my_numbers)
-        wins.append(gamers[w % 2 - 1])
+        wins.append(players[w % 2 - 1])
 
-    winner = ''
-    if wins.count(gamers[0]) > wins.count(gamers[1]):
-        winner = gamers[0]
-    elif wins.count(gamers[0]) < wins.count(gamers[1]):
-        winner = gamers[1]
+    winner = None
+    if wins.count(players[0]) > wins.count(players[1]):
+        winner = players[0]
+    elif wins.count(players[0]) < wins.count(players[1]):
+        winner = players[1]
     else:
-        winner = None
+        pass
 
     return winner
