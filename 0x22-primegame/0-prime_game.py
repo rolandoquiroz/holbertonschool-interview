@@ -23,9 +23,9 @@ def get_minimum_prime_number(list_of_numbers):
             return (minimum_prime_number)
 
 
-def filtered_numbers(minimum_prime, list_of_numbers):
+def filtered_numbers(minimum_prime_number, list_of_numbers):
     ''' Remove minimum prime and multiples from list of numbers '''
-    result = filter(lambda x: x % minimum_prime != 0, list_of_numbers)
+    result = filter(lambda x: x % minimum_prime_number != 0, list_of_numbers)
     list_of_numbers_filtered = list(result)
     return list_of_numbers_filtered
 

@@ -9,4 +9,4 @@ print("Winner: {}".format(isWinner(5, [0, 0, 0, 0, 0])))
 
 print("Winner: {}".format(isWinner(5, [1, 1, 1, 1, 1])))
 
-print("Winner: {}".format(isWinner(5, ['a', 0, 0, 0, 0])))
+print("Winner: {}".format(isWinner(1, [])))
