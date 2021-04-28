@@ -23,7 +23,7 @@ def get_minimum_prime_number(list_of_numbers):
             return (minimum_prime_number)
 
 
-def filtered_numbers(minimum_prime_number, list_of_numbers):
+def filter_numbers(minimum_prime_number, list_of_numbers):
     ''' Remove minimum prime number and its multiples from list of numbers '''
     result = filter(lambda x: x % minimum_prime_number != 0, list_of_numbers)
     list_of_filtered_numbers = list(result)
@@ -98,8 +98,8 @@ def isWinner(x, nums):
         my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         while my_minimum_prime_number is not None:
             w = w + 1
-            my_filtered_numbers = filtered_numbers(my_minimum_prime_number,
-                                                   my_numbers)
+            my_filtered_numbers = filter_numbers(my_minimum_prime_number,
+                                                 my_numbers)
             my_numbers = my_filtered_numbers
             my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         wins.append(players[w % 2 - 1])
