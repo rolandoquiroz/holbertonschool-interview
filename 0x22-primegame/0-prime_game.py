@@ -15,12 +15,6 @@ def isPrime(n):
         return True
 
 
-def generate_numbers(num):
-    ''' Generates the list of numbers from 0 to num'''
-    numbers = [n for n in range(1, num + 1)]
-    return numbers
-
-
 def get_minimum_prime_number(list_of_numbers):
     ''' Function that gets the minimum prime number of a list of numbers'''
     for number in list_of_numbers:
@@ -94,7 +88,7 @@ def isWinner(x, nums):
 
     wins = []
     for num in nums:
-        my_numbers = generate_numbers(num)
+        my_numbers = [n for n in range(1, num + 1)]
         w = 0
         my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         while my_minimum_prime_number is not None:
