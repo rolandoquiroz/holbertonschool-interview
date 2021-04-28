@@ -89,7 +89,7 @@ def isWinner(x, nums):
 
     if length != x:
         return None
-    
+
     if not nums:
         return None
 
