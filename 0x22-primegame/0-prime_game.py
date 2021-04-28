@@ -76,12 +76,14 @@ def isWinner(x, nums):
         name of the player that won the most rounds
         If the winner cannot be determined, return None
     """
-    length = len(nums)
+
+    if not nums:
+        return None
 
     if x < 1:
         return None
 
-    if not nums:
+    if any(not isinstance(m, int) or m < 1 for m in nums):
         return None
 
     gamers = ['Maria', 'Ben']
