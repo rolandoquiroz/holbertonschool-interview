@@ -96,7 +96,7 @@ def isWinner(x, nums):
         w = 0
         my_minimum_prime_number = get_minimum_prime_number(my_numbers)
         while my_minimum_prime_number is not None:
-            w = w + 1
+            w += 1
             my_filtered_numbers = filter_numbers(my_minimum_prime_number,
                                                  my_numbers)
             my_numbers = my_filtered_numbers
