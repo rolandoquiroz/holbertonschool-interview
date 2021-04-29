@@ -101,6 +101,7 @@ def isWinner(x, nums):
                                                  my_numbers)
             my_numbers = my_filtered_numbers
             my_minimum_prime_number = get_minimum_prime_number(my_numbers)
+
         if w % 2 - 1:
             Benwins += 1
         else:
