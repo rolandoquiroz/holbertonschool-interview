@@ -85,8 +85,8 @@ def isWinner(x, nums):
     if x < 1:
         return None
 
-    Mariawins = 0
-    Benwins = 0
+    Maria_wins = 0
+    Ben_wins = 0
     for rnd in range(x):
 
         if (type(nums[rnd]) is not int):
@@ -103,13 +103,13 @@ def isWinner(x, nums):
             my_minimum_prime_number = get_minimum_prime_number(my_numbers)
 
         if w % 2 - 1:
-            Benwins += 1
+            Ben_wins += 1
         else:
-            Mariawins += 1
+            Maria_wins += 1
 
-    if Mariawins > Benwins:
+    if Maria_wins > Ben_wins:
         return 'Maria'
-    elif Benwins > Mariawins:
+    elif Ben_wins > Maria_wins:
         return 'Ben'
 
     return None
