@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-You have n number of locked boxes in front of you.Each box is numbered
+You have n number of locked boxes in front of you. Each box is numbered
 sequentially from 0 to n - 1 and each box may contain keys to the other
 boxes.
 
@@ -21,10 +21,16 @@ function methods:
 
 def canUnlockAll(boxes):
     """Determines if all the boxes can be opened.
-    Args:
-        boxes (list): A list of lists
-    Returns:
-        (bool): True if all boxes can be opened, else return False
+
+    Parameters
+    ----------
+    boxes : list
+        A list of lists.
+
+    Returns
+    -------
+    : bool
+        True if all boxes can be opened, else return False.
     """
     needed_keys = []
     for i in range(len(boxes)):
@@ -41,4 +47,5 @@ def canUnlockAll(boxes):
                 continue
         if needed_keys == sorted(got_keys):
             return True
+
     return False
